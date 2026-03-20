@@ -4,10 +4,10 @@
 
 @theme inline {
   --font-sans:
-    'JetBrains Mono', Geist, ui-sans-serif, system-ui, sans-serif,
+    'JetBrains Mono', ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono:
-    'JetBrains Mono', Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   --color-background: var(--background);
@@ -73,5 +73,9 @@
   ::backdrop,
   ::file-selector-button {
     @apply border-border outline-ring/50 tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
   }
 }
