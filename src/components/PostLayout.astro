@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { formatDate } from "../lib/date";
+import { POST } from "../consts";
+
+const { post } = Astro.props;
+
+// Calculate reading time
+const words = post.body ? post.body.split(/\s+/).length : 0;
+const minutes = Math.max(1, Math.ceil(words / 200));
+const readingTime = POST.readingTime && words > 0 ? ` · ${minutes} min` : "";
+
+const hasTags = post.data.tags && post.data.tags.length > 0;
+---
+
+<Layout title={`${post.data.title}`} desc={post.data.desc}>
+  <article class="space-y-8">
+    <header class="space-y-3">
+      <h1 class="text-2xl font-semibold">{post.data.title}</h1>
+      <div class="flex items-center gap-2 tabular-nums text-sm">
+        <time class="opacity-70" datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate)}{readingTime}
+        </time>
+        
+        {POST.tagsPosition === "top" && hasTags && (
+          <>
+            <span class="opacity-70">·</span>
+            <div class="flex items-center gap-2">
+              {post.data.tags.map((tag: string) => (
+                <a href={`/tags/${tag}`} class="opacity-70 transition-opacity hover:opacity-100">
+                  <span>[{tag}]</span>
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+
+    <div class="prose prose-base max-w-none prose-a:underline">
+      <slot />
+    </div>
+
+    {POST.tagsPosition === "bottom" && hasTags && (
+      <div class="flex items-center gap-2 text-sm">
+        {/* <span class="opacity-70">Tags:</span> */}
+        {post.data.tags.map((tag: string) => (
+          <a href={`/tags/${tag}`} class="opacity-70 transition-opacity hover:opacity-100">
+            <span>[{tag}]</span>
+          </a>
+        ))}
+      </div>
+    )}
+  </article>
+</Layout>

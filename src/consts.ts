@@ -1,59 +1,31 @@
-import type { IconMap, SocialLink, Site } from '@/types'
+import type { Site, Link, Post } from "./types";
 
 export const SITE: Site = {
-  title: 'log(Ɛ)',
-  description:
-    'My technical blog where I share my thoughts and experiences on software development, programming languages, and technology in general.',
-  href: 'https://3p5ilon.vercel.app',
-  author: 'epsilon',
-  locale: 'en-US',
-  featuredPostCount: 2,
-  postsPerPage: 3,
-}
+  title: "Ɛpsilon",
+  desc: "AI researcher, entrepreneur, and developer.",
+  author: "Ɛpsilon",
+  siteUrl: "https://3p5ilon.vercel.app",
+  ogImage: "/favicon.svg",
+  language: "en",
+};
 
-export const NAV_LINKS: SocialLink[] = [
-  {
-    href: '/blog',
-    label: 'blog',
-  },
-  {
-    href: '/projects',
-    label: 'projects',
-  },
-  {
-    href: '/about',
-    label: 'about',
-  },
-  // {
-  //   href: '/tags',
-  //   label: 'tags',
-  // },
-]
+export const NAV_LINKS: Link[] = [
+  { href: "/", label: "/" },
+  { href: "/blog", label: "/log" },
+  { href: "/notes", label: "/notes" },
+  { href: "/labs", label: "/lab" },
+  { href: "/library", label: "/library" },
+  { href: "https://3p5ilon.github.io/", label: "$" },
+];
 
-export const SOCIAL_LINKS: SocialLink[] = [
-  {
-    href: 'https://github.com/3p5ilon',
-    label: 'GitHub',
-  },
-  {
-    href: 'https://twitter.com/3p5ilon',
-    label: 'Twitter',
-  },
-  {
-    href: 'mailto:log3p5ilon@gmail.com',
-    label: 'Email',
-  },
-  {
-    href: '/rss.xml',
-    label: 'RSS',
-  },
-]
+export const SOCIAL_LINKS: Link[] = [
+  { href: "https://x.com/3p5ilon", label: "[/x]" },
+  { href: "https://github.com/3p5ilon", label: "[/github]" },
+  { href: "mailto:hi3psilon@gmail.com", label: "[/email]" },
+  { href: "/rss.xml", label: "[/rss]" },
+];
 
-export const ICON_MAP: IconMap = {
-  Website: 'lucide:globe',
-  GitHub: 'lucide:github',
-  LinkedIn: 'lucide:linkedin',
-  Twitter: 'lucide:twitter',
-  Email: 'lucide:mail',
-  RSS: 'lucide:rss',
-}
+export const POST: Post = {
+  readingTime: false,
+  tagsPosition: "bottom" , // "top" | "bottom" | "hidden"
+};

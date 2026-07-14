@@ -1,68 +1,36 @@
 {
   "name": "log-epsilon",
   "type": "module",
-  "version": "1.6.3",
-  "private": true,
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "prettier": "prettier --write **/*.{ts,tsx,css,astro} --ignore-path .gitignore"
+    "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.8",
-    "@astrojs/markdown-remark": "7.0.1",
-    "@astrojs/mdx": "5.0.2",
-    "@astrojs/react": "5.0.1",
-    "@astrojs/rss": "4.0.17",
-    "@astrojs/sitemap": "3.7.1",
-    "@expressive-code/plugin-collapsible-sections": "^0.41.7",
-    "@expressive-code/plugin-line-numbers": "^0.41.7",
-    "@iconify-json/lucide": "^1.2.98",
-    "@shikijs/rehype": "^4.0.2",
-    "@tailwindcss/vite": "^4.2.2",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "astro": "6.0.8",
-    "astro-icon": "^1.1.5",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.0.1",
-    "radix-ui": "^1.4.3",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "rehype-expressive-code": "^0.41.7",
-    "rehype-external-links": "^3.0.0",
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/react": "^5.0.4",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.2.0",
+    "katex": "^0.16.45",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-icons": "^5.6.0",
     "rehype-katex": "^7.0.1",
-    "remark-emoji": "^5.0.2",
     "remark-math": "^6.0.0",
-    "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2"
+    "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-astro-organize-imports": "^0.4.11",
-    "prettier-plugin-tailwindcss": "^0.7.2"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "plugins": [
-      "prettier-plugin-astro",
-      "prettier-plugin-tailwindcss",
-      "prettier-plugin-astro-organize-imports"
-    ],
-    "overrides": [
-      {
-        "files": "*.astro",
-        "options": {
-          "parser": "astro"
-        }
-      }
-    ]
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }

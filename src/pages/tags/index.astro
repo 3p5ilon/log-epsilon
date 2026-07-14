@@ -1,33 +1,36 @@
 ---
-import Breadcrumbs from '@/components/breadcrumbs.astro'
-import Link from '@/components/link.astro'
-import PageHead from '@/components/page-head.astro'
-import { badgeVariants } from '@/components/ui/badge'
-import Layout from '@/layouts/layout.astro'
-import { getSortedTags } from '@/lib/data-utils'
-import { Icon } from 'astro-icon/components'
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { SITE } from "../../consts";
 
-const sortedTags = await getSortedTags()
+const blogs = await getCollection("blog", ({ data }) => !data.draft);
+const notes = await getCollection("notes", ({ data }) => !data.draft);
+const allPosts = [...blogs, ...notes];
+
+const tagCounts: Record<string, number> = {};
+allPosts.forEach((post) => {
+  post.data.tags?.forEach((tag: string) => {
+    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+  });
+});
+
+const tags = Object.keys(tagCounts).sort();
 ---
 
-<Layout class="max-w-3xl">
-  <PageHead slot="head" title="Tags" />
-  <Breadcrumbs items={[{ label: 'Tags', icon: 'lucide:tags' }]} />
-
-  <div class="flex flex-col gap-4">
-    <div class="flex flex-wrap gap-2">
+<Layout title="Tags" desc={`All tags used on ${SITE.title}.`}>
+  <section class="space-y-8">
+    <h1 class="text-2xl font-semibold">Tags</h1>
+    <div class="flex flex-wrap gap-4 text-base">
       {
-        sortedTags.map(({ tag, count }) => (
-          <Link
+        tags.map((tag) => (
+          <a
             href={`/tags/${tag}`}
-            class={badgeVariants({ variant: 'muted' })}
+            class="transition-opacity hover:opacity-70 tabular-nums"
           >
-            <Icon name="lucide:hash" class="size-3" />
-            {tag}
-            <span class="text-muted-foreground ml-1.5">({count})</span>
-          </Link>
+            [{tag} ({tagCounts[tag]})]
+          </a>
         ))
       }
     </div>
-  </div>
+  </section>
 </Layout>

@@ -1,40 +1,46 @@
-# log(Ɛ)
+# Astro Starter Kit: Basics
 
-My technical blog website, built with Astro (forked from [astro-erudite](https://github.com/jktrn/astro-erudite))
-
-## Quick Start
-
-```bash
-# Clone and install
-git clone https://github.com/3p5ilon/log-epsilon.git
-cd log-epsilon
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
+```sh
+pnpm create astro@latest -- --template basics
 ```
 
-## Tech Stack
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-- **Framework:** [Astro](https://astro.build)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com)
-- **UI:** [shadcn/ui](https://ui.shadcn.com)
-- **Content:** MDX with [Expressive Code](https://expressive-code.com)
-- **Deployment:** [Vercel](https://vercel.com)
+## 🚀 Project Structure
 
-## Configuration
+Inside of your Astro project, you'll see the following folders and files:
 
-Edit `src/consts.ts` for site metadata and links. Colors in `src/styles/global.css` use OKLCH format.
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
+```
 
-## Adding Content
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-- **Blog posts:** Add MDX files to `src/content/blog/` with required frontmatter (`title`, `description`, `date`)
-- **Authors:** Add Markdown files to `src/content/authors/`
-- **Projects:** Add Markdown files to `src/content/projects/`
+## 🧞 Commands
 
-## License
+All commands are run from the root of the project, from a terminal:
 
-[MIT](LICENSE)
+| Command                | Action                                           |
+| :--------------------- | :----------------------------------------------- |
+| `pnpm install`         | Installs dependencies                            |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm build`           | Build your production site to `./dist/`          |
+| `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

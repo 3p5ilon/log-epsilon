@@ -1,18 +1,18 @@
 export type Site = {
-  title: string
-  description: string
-  href: string
-  author: string
-  locale: string
-  featuredPostCount: number
-  postsPerPage: number
-}
+  title: string;
+  desc: string;
+  author: string;
+  siteUrl: string;
+  ogImage: string;
+  language: string;
+};
 
-export type SocialLink = {
-  href: string
-  label: string
-}
+export type Link = {
+  href: string;
+  label: string;
+};
 
-export type IconMap = {
-  [key: string]: string
-}
+export type Post = {
+  readingTime: boolean;
+  tagsPosition: "top" | "bottom" | "hidden";
+};
