@@ -5,7 +5,7 @@ export const SITE: Site = {
   desc: "AI researcher, entrepreneur, and developer.",
   author: "Ɛpsilon",
   siteUrl: "https://3p5ilon.vercel.app",
-  ogImage: "/favicon.svg",
+  ogImage: "/banner.svg",
   language: "en",
 };
 
@@ -15,7 +15,7 @@ export const NAV_LINKS: Link[] = [
   { href: "/notes", label: "/notes" },
   { href: "/labs", label: "/lab" },
   { href: "/library", label: "/library" },
-  { href: "https://3p5ilon.github.io/", label: "$" },
+  { href: "https://log-epsilon.vercel.app", label: "$" },
 ];
 
 export const SOCIAL_LINKS: Link[] = [
