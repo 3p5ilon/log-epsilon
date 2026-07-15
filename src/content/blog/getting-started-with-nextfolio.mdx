@@ -28,9 +28,49 @@ tags: [notes]
 ---
 ```
 
-$
-\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
-$
+```py
+import random
 
+
+def guessing_game():
+    # Generate a random number between 1 and 10
+    secret_number = random.randint(1, 10)
+    attempts = 0
+
+    print("I'm thinking of a number between 1 and 10. Can you guess it?")
+
+    while True:
+        # Get input from the user
+        guess = int(input("Enter your guess: "))
+        attempts += 1
+
+        if guess < secret_number:
+            print("Too low! Try again.")
+        elif guess > secret_number:
+            print("Too high! Try again.")
+        else:
+            print(
+                f"🎉 Awesome! You guessed it in {attempts} attempts."
+            )
+            break
+
+
+# Run the game
+guessing_game()
+```
+
+```cpp
+#include <iostream>
+
+int main() {
+    // This prints "Hello, World!" to the console
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+```
+
+$$ \sqrt[{3}]{ -\frac{q}{2} +\sqrt{\frac{q^2}{4} + {\frac{p^{3}}{27}}} }+ \sqrt[{3}]{ -\frac{q}{2} -\sqrt{\frac{q^2}{4} + {\frac{p^{3}}{27}}} } $$
+
+$$ \left| \sum_{k=1}^n {u_k \bar{v_k}} \right|^2 \leq { \left( \sum_{k=1}^n {|u_k|} \right)^2 \left( \sum_{k=1}^n {|v_k|} \right)^2 } $$
 
 The post will automatically appear on `/blog`.

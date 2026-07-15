@@ -6,12 +6,11 @@ import sitemap from "@astrojs/sitemap";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
-import react from "@astrojs/react";
 import { SITE } from "./src/consts";
 
 export default defineConfig({
   site: SITE.siteUrl,
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap()],
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
