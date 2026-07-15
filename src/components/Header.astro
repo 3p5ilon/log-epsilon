@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="mb-10 border-b border-[var(--theme-divider)] pb-4">
-  <nav aria-label="Main navigation" class="flex items-center justify-between gap-4 text-sm">
+  <nav aria-label="Main navigation" class="text-sm">
     <ul class="m-0 flex list-none flex-wrap items-center gap-4 p-0">
       {
         NAV_LINKS.map((item) => {
@@ -23,7 +23,9 @@ const currentPath = Astro.url.pathname;
           );
         })
       }
+      <li class="sm:ml-auto">
+        <ThemeToggle />
+      </li>
     </ul>
-    <ThemeToggle />
   </nav>
 </header>
