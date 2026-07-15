@@ -49,28 +49,26 @@ const ogImageUrl = new URL(image, Astro.site ?? SITE.siteUrl).toString();
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <script is:inline>
-      (function() {
-        const storageKey = "theme-preference";
-        const getTheme = () => {
-          const stored = localStorage.getItem(storageKey);
-          if (stored) return stored;
-          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        };
-        const theme = getTheme();
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        }
-        document.documentElement.style.colorScheme = theme;
-      })();
+      const initTheme = () => {
+        const stored = localStorage.getItem("theme");
+        const isDark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", isDark);
+      };
+      initTheme();
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (!localStorage.getItem("theme")) initTheme();
+      });
     </script>
   </head>
   <body>
-    <div class="mx-auto flex min-h-screen w-full max-w-[720px] flex-col px-5 py-8 sm:px-0">
+  <main class="px-5">
+    <div class="mx-auto flex min-h-screen w-full max-w-[45rem] flex-col py-8">
       <Header />
-      <main class="flex-1">
+      <div class="flex-1">
         <slot />
-      </main>
+      </div>
       <Footer />
     </div>
-  </body>
+  </main>
+</body>
 </html>
