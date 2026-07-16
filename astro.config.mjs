@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
@@ -12,14 +13,16 @@ export default defineConfig({
   site: SITE.siteUrl,
   integrations: [mdx(), sitemap()],
   markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
-    shikiConfig: {
-      themes: {
-        light: "github-light",
-        dark: "github-dark",
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+      shikiConfig: {
+        themes: {
+          light: "github-light",
+          dark: "github-dark",
+        },
       },
-    },
+    }),
   },
 
   vite: {

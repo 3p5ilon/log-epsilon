@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 import { SITE } from "../consts";
 
-export const GET: APIRoute = async (context) => {
+export const GET: APIRoute = async () => {
   const blogPosts = (await getCollection("blog", ({ data }) => !data.draft)).map(
     (post) => ({ ...post, collection: "blog" as const }),
   );
