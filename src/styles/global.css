@@ -5,9 +5,17 @@
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  src: url("/fonts/JetBrainsMono-var.woff2") format("woff2");
   font-weight: 100 800;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Italic-var.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: italic;
   font-display: swap;
 }
 
