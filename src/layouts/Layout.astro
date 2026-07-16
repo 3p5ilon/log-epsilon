@@ -46,7 +46,7 @@ const ogImageUrl = new URL(image, Astro.site ?? SITE.siteUrl).toString();
     <meta name="twitter:description" content={desc} />
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono[wght].woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <script is:inline>
       const initTheme = () => {

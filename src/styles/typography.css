@@ -26,29 +26,15 @@
   text-decoration: underline;
 }
 
-.prose :where(h1) {
-  font-size: 24px;
-  font-weight: 500;
+.prose :where(h1, h2, h3, h4) {
+  font-weight: 600;
   letter-spacing: normal;
 }
 
-.prose :where(h2) {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: normal;
-}
-
-.prose :where(h3) {
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: normal;
-}
-
-.prose :where(h4) {
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: normal;
-}
+.prose :where(h1) { font-size: 24px; }
+.prose :where(h2) { font-size: 20px; }
+.prose :where(h3) { font-size: 18px; }
+.prose :where(h4) { font-size: 16px; }
 
 .prose blockquote p:first-of-type::before,
 .prose blockquote p:last-of-type::after,
@@ -63,14 +49,6 @@
   padding: 1rem;
 }
 
-html.dark .astro-code {
-  background-color: var(--bg-muted) !important;
-}
-
-/*
-  Shiki outputs light colors inline and dark colors in --shiki-dark variables.
-  Force dark token colors when .dark class is active.
-*/
 html.dark .astro-code,
 html.dark .astro-code span {
   color: var(--shiki-dark) !important;
