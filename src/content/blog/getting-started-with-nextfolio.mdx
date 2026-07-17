@@ -7,6 +7,8 @@ tags:
   - setup
 ---
 
+import Callout from "../../components/Callout.astro";
+
 ## Start with the essentials
 
 Nextfolio gives you a focused writing setup:
@@ -28,49 +30,198 @@ tags: [notes]
 ---
 ```
 
-```py
-import random
+## Code Blocks
 
+### Basic Code Block
 
-def guessing_game():
-    # Generate a random number between 1 and 10
-    secret_number = random.randint(1, 10)
-    attempts = 0
-
-    print("I'm thinking of a number between 1 and 10. Can you guess it?")
-
-    while True:
-        # Get input from the user
-        guess = int(input("Enter your guess: "))
-        attempts += 1
-
-        if guess < secret_number:
-            print("Too low! Try again.")
-        elif guess > secret_number:
-            print("Too high! Try again.")
-        else:
-            print(
-                f"🎉 Awesome! You guessed it in {attempts} attempts."
-            )
-            break
-
-
-# Run the game
-guessing_game()
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>Test</p>
+  </body>
+</html>
 ```
 
-```cpp
-#include <iostream>
+### Filename Tabs
 
-int main() {
-    // This prints "Hello, World!" to the console
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+Add a `title` to show a filename tab above the code block:
+
+```js title="config.js"
+const siteConfig = {
+  name: 'My Blog',
+  url: 'https://example.com',
+  lang: 'en',
+}
+export default siteConfig
+```
+
+```css title="styles/global.css"
+:root {
+  --accent: #2337ff;
+  --gray: 96, 115, 159;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: rgb(var(--gray));
 }
 ```
 
-$$ \sqrt[{3}]{ -\frac{q}{2} +\sqrt{\frac{q^2}{4} + {\frac{p^{3}}{27}}} }+ \sqrt[{3}]{ -\frac{q}{2} -\sqrt{\frac{q^2}{4} + {\frac{p^{3}}{27}}} } $$
+### Line Numbers
 
-$$ \left| \sum_{k=1}^n {u_k \bar{v_k}} \right|^2 \leq { \left( \sum_{k=1}^n {|u_k|} \right)^2 \left( \sum_{k=1}^n {|v_k|} \right)^2 } $$
+Enable line numbers per block with `showLineNumbers`:
 
-The post will automatically appear on `/blog`.
+```ts title="utils.ts" showLineNumbers
+export function fibonacci(n: number): number {
+  if (n <= 1) return n
+  return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+export function factorial(n: number): number {
+  if (n <= 1) return 1
+  return n * factorial(n - 1)
+}
+
+console.log(fibonacci(10)) // 55
+console.log(factorial(5))  // 120
+```
+
+You can also set a custom starting number:
+
+```py title="example.py" showLineNumbers startLineNumber=5
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+for i in range(3):
+    print(greet(f"User {i}"))
+```
+
+### Highlighted Lines
+
+Highlight specific lines with `{lineNumbers}`:
+
+```js title="highlight-example.js" {2, 4-5}
+const items = ['apple', 'banana', 'cherry']
+const filtered = items.filter(item => item.length > 5)  // highlighted
+console.log(filtered) // ['banana', 'cherry']
+const sorted = filtered.sort()
+console.log(sorted)
+```
+
+### Insertions and Deletions (Diffs)
+
+Show additions and removals with `ins` and `del`:
+
+```js title="diff-example.js" del={2} ins={3-4}
+function getGreeting(name) {
+  return 'Hello, ' + name + '!'
+  const greeting = `Hello, ${name}!`
+  return greeting
+}
+```
+
+You can also use the `mark` marker for neutral highlights:
+
+```ts title="marked-example.ts" {3: 'Important function'}
+export function loadData() {
+  const data = fetch('/api/data')
+  // This function is critical to the app
+  return data.json()
+}
+```
+
+### Word Wrap
+
+Long lines wrap by default. Disable per block with `wrap=false`:
+
+```bash title="terminal.sh"
+echo "This is a very long command that demonstrates how word wrapping works in Expressive Code blocks when the content exceeds the available width"
+```
+
+### Collapsible Sections
+
+Collapse repetitive or less important code with `collapse`:
+
+```js title="collapsible-example.js" collapse={5-15}
+import { createApp } from 'vue'
+import App from './App.vue'
+
+// ---vvv--- Collapsed boilerplate ---vvv---
+const app = createApp(App)
+app.use(router)
+app.use(store)
+app.use(i18n)
+app.directive('focus', {})
+app.component('GlobalComponent', {})
+app.mixin({})
+app.config.errorHandler = () => {}
+app.config.warnHandler = () => {}
+// ---^^^--- End collapsed section ---^^^---
+
+// Your actual app logic starts here
+app.mount('#app')
+```
+
+### Terminal Blocks
+
+Shell commands automatically get a terminal-style frame:
+
+```bash
+npm create astro@latest -- --template blog
+cd my-blog
+npm install
+npm run dev
+```
+
+### Combined Features
+
+You can combine multiple features in a single block:
+
+```tsx title="src/components/Button.tsx" showLineNumbers {3, 7-9} ins={10-12} del={5-6}
+import type { ReactNode } from 'react'
+
+interface ButtonProps {
+  children: ReactNode
+  variant?: 'primary' | 'secondary'
+  type?: 'button' | 'submit'
+  disabled?: boolean
+}
+
+export function Button({ children, variant = 'primary', ...props }: ButtonProps) {
+  const className = `btn btn-${variant}`
+  return (
+    <button className={className} {...props}>
+      {children}
+    </button>
+  )
+}
+```
+
+## Callouts
+
+Use the `Callout` component to highlight important information in your posts:
+
+<Callout type="note">
+  Nextfolio uses **Expressive Code** for syntax highlighting with full support for line numbers, diffs, and collapsible sections.
+</Callout>
+
+<Callout type="tip" title="Pro tip">
+  You can combine multiple code block features like `showLineNumbers`, `{lineNumbers}` for highlights, and `ins`/`del` for diffs — all in a single fenced block.
+</Callout>
+
+<Callout type="important">
+  Always add a `title` and `desc` to your frontmatter. These are used for SEO meta tags and the RSS feed.
+</Callout>
+
+<Callout type="warning">
+  Changing your `siteUrl` in `consts.ts` after deployment will break all canonical URLs and sitemap links. Set it once before going live.
+</Callout>
+
+<Callout type="caution">
+  Never commit your `.env` file to version control. Use `.env.example` as a template and add `.env` to your `.gitignore`.
+</Callout>
