@@ -15,7 +15,7 @@ export const NAV_LINKS: Link[] = [
   { href: "/notes", label: "/notes" },
   { href: "/labs", label: "/lab" },
   { href: "/library", label: "/library" },
-  { href: "https://log-epsilon.vercel.app", label: "$" },
+  { href: "https://3p5ilon.github.io", label: "$" },
 ];
 
 export const SOCIAL_LINKS: Link[] = [
