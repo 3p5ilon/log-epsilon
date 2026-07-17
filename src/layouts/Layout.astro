@@ -50,20 +50,21 @@ const ogImageUrl = new URL(image, Astro.site ?? SITE.siteUrl).toString();
     <link rel="preload" href="/fonts/JetBrainsMono-Italic-var.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <script is:inline>
-      const initTheme = () => {
-        const stored = localStorage.getItem("theme");
-        const isDark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
-        document.documentElement.classList.toggle("dark", isDark);
-      };
-      initTheme();
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-        if (!localStorage.getItem("theme")) initTheme();
+      const stored = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme =
+        stored ?? (prefersDark ? "dark" : "light");
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (!localStorage.getItem("theme")) {
+          document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+        }
       });
     </script>
   </head>
   <body>
   <main class="px-5">
-    <div class="mx-auto flex min-h-screen w-full max-w-[45rem] flex-col py-8">
+    <div class="mx-auto flex min-h-screen w-full max-w-[45rem] flex-col py-6.5">
       <Header />
       <div class="flex-1">
         <slot />

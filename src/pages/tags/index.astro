@@ -25,7 +25,7 @@ const tags = Object.keys(tagCounts).sort();
         tags.map((tag) => (
           <a
             href={`/tags/${tag}`}
-            class="transition-opacity hover:opacity-70 tabular-nums"
+            class="transition-colors duration-200 text-theme-accent hover:text-theme-link tabular-nums"
           >
             [{tag} ({tagCounts[tag]})]
           </a>

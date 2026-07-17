@@ -27,7 +27,7 @@ const hasTags = post.data.tags && post.data.tags.length > 0;
             <span class="opacity-70">·</span>
             <div class="flex items-center gap-2">
               {post.data.tags.map((tag: string) => (
-                <a href={`/tags/${tag}`} class="opacity-70 transition-opacity hover:opacity-100">
+                <a href={`/tags/${tag}`} class="transition-colors duration-200 text-theme-accent hover:text-theme-link">
                   <span>[{tag}]</span>
                 </a>
               ))}
@@ -45,7 +45,7 @@ const hasTags = post.data.tags && post.data.tags.length > 0;
       <div class="flex items-center gap-2 text-sm">
         {/* <span class="opacity-70">Tags:</span> */}
         {post.data.tags.map((tag: string) => (
-          <a href={`/tags/${tag}`} class="opacity-70 transition-opacity hover:opacity-100">
+          <a href={`/tags/${tag}`} class="transition-colors duration-200 text-theme-accent hover:text-theme-link">
             <span>[{tag}]</span>
           </a>
         ))}

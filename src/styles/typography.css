@@ -1,5 +1,5 @@
 .prose {
-  --tw-prose-body: var(--text-main);
+ --tw-prose-body: var(--text-main);
   --tw-prose-headings: var(--text-main);
   --tw-prose-lead: var(--text-main);
   --tw-prose-bold: var(--text-main);
@@ -16,40 +16,58 @@
   --tw-prose-td-borders: color-mix(in srgb, var(--border-main) 15%, transparent);
   --tw-prose-links: var(--theme-link);
   color: var(--text-main);
-}
 
-.prose a {
-  color: var(--theme-link);
-  text-decoration: none;
-}
-.prose a:hover {
-  text-decoration: underline;
-}
+  a {
+    @apply text-theme-link no-underline hover:underline underline-offset-2;
+  }
 
-.prose :where(h1, h2, h3, h4) {
-  font-weight: 600;
-  letter-spacing: normal;
-}
+  :where(h1, h2, h3, h4, h5) {
+    @apply font-semibold tracking-normal;
+  }
+  :where(h1) { @apply text-2xl; }
+  :where(h2) { @apply text-xl; }
+  :where(h3) { @apply text-lg; }
+  :where(h4) { @apply text-base; }
 
-.prose :where(h1) { font-size: 24px; }
-.prose :where(h2) { font-size: 20px; }
-.prose :where(h3) { font-size: 18px; }
-.prose :where(h4) { font-size: 16px; }
+  blockquote p:first-of-type::before,
+  blockquote p:last-of-type::after,
+  blockquote::before,
+  blockquote::after {
+    content: none;
+  }
 
-.prose blockquote p:first-of-type::before,
-.prose blockquote p:last-of-type::after,
-.prose blockquote::before,
-.prose blockquote::after {
-  content: none;
-}
+  code:not(.expressive-code code) {
+    @apply text-sm text-text-main bg-bg-muted px-2 py-1 rounded-lg whitespace-nowrap;
+  }
 
-.astro-code {
-  background-color: var(--bg-muted) !important;
-  border-radius: 0.5rem;
-  padding: 1rem;
-}
+  div.expressive-code {
+    @apply my-6;
+    --ec-codeFontFml: var(--font-mono);
 
-html.dark .astro-code,
-html.dark .astro-code span {
-  color: var(--shiki-dark) !important;
+    div.code span {
+      font-style: normal !important;
+    }
+
+    div.copy {
+      button {
+        @apply hidden sm:flex;
+        --code-background: var(--bg-main);
+      }
+    }
+
+    figure {
+      @apply border border-bg-surface;
+      box-shadow: none !important;
+
+      figcaption {
+        @apply !bg-bg-muted;
+        background: var(--bg-muted) !important;
+      }
+
+      & > pre {
+        border: none !important;
+        scrollbar-width: thin;
+      }
+    }
+  }
 }

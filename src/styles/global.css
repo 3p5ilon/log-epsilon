@@ -19,32 +19,117 @@
   font-display: swap;
 }
 
-@theme {
-  --font-mono: "JetBrains Mono", monospace;
-}
-
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:is([data-theme="dark"] *));
 
 :root {
-  --text-main: #171717;
-  --bg-main: #ffffff;
-  --bg-muted: #fafafa;
-  --border-main: #d4d4d4;
-  --theme-divider: #e5e5e5;
-  --theme-link: #d97706;
+  --ctp-rosewater:  #dc8a78;
+  --ctp-flamingo:   #dd7878;
+  --ctp-pink:       #ea76cb;
+  --ctp-mauve:      #8839ef;
+  --ctp-red:        #d20f39;
+  --ctp-maroon:     #e64553;
+  --ctp-peach:      #fe640b;
+  --ctp-yellow:     #df8e1d;
+  --ctp-green:      #40a02b;
+  --ctp-teal:       #179299;
+  --ctp-sky:        #04a5e5;
+  --ctp-sapphire:   #209fb5;
+  --ctp-blue:       #1e66f5;
+  --ctp-lavender:   #7287fd;
+  --ctp-text:       #4c4f69;
+  --ctp-subtext1:   #5c5f77;
+  --ctp-subtext0:   #6c6f85;
+  --ctp-overlay2:   #7c7f93;
+  --ctp-overlay1:   #8c8fa1;
+  --ctp-overlay0:   #9ca0b0;
+  --ctp-surface2:   #acb0be;
+  --ctp-surface1:   #bcc0cc;
+  --ctp-surface0:   #ccd0da;
+  --ctp-base:       #eff1f5;
+  --ctp-mantle:     #e6e9ef;
+  --ctp-crust:      #dce0e8;
+
+  --text-main:      var(--ctp-text);
+  --text-muted:     var(--ctp-subtext1);
+  --bg-main:        var(--ctp-base);
+  --bg-muted:       var(--ctp-mantle);
+  --bg-surface:     var(--ctp-surface0);
+  --border-main:    var(--ctp-surface2);
+  --border-code:    var(--ctp-overlay0);
+  --theme-divider:  var(--ctp-surface1);
+  --theme-link:     var(--ctp-mauve);
+  --theme-accent:   var(--ctp-blue);
 }
 
-html.dark {
-  --text-main: #f5f5f5;
-  --bg-main: #09090b;
-  --bg-muted: #18181b;
-  --border-main: #3f3f46;
-  --theme-divider: #27272a;
-  --theme-link: #f59e0b;
+[data-theme="dark"] {
+  --ctp-rosewater:  #f5e0dc;
+  --ctp-flamingo:   #f2cdcd;
+  --ctp-pink:       #f5c2e7;
+  --ctp-mauve:      #cba6f7;
+  --ctp-red:        #f38ba8;
+  --ctp-maroon:     #eba0ac;
+  --ctp-peach:      #fab387;
+  --ctp-yellow:     #f9e2af;
+  --ctp-green:      #a6e3a1;
+  --ctp-teal:       #94e2d5;
+  --ctp-sky:        #89dceb;
+  --ctp-sapphire:   #74c7ec;
+  --ctp-blue:       #89b4fa;
+  --ctp-lavender:   #b4befe;
+  --ctp-text:       #cdd6f4;
+  --ctp-subtext1:   #bac2de;
+  --ctp-subtext0:   #a6adc8;
+  --ctp-overlay2:   #9399b2;
+  --ctp-overlay1:   #7f849c;
+  --ctp-overlay0:   #6c7086;
+  --ctp-surface2:   #585b70;
+  --ctp-surface1:   #45475a;
+  --ctp-surface0:   #313244;
+  --ctp-base:       #1e1e2e;
+  --ctp-mantle:     #181825;
+  --ctp-crust:      #11111b;
+
+  --text-main:      var(--ctp-text);
+  --text-muted:     var(--ctp-subtext1);
+  --bg-main:        var(--ctp-base);
+  --bg-muted:       var(--ctp-mantle);
+  --bg-surface:     var(--ctp-surface0);
+  --border-main:    var(--ctp-surface2);
+  --border-code:    var(--ctp-surface1);
+  --theme-divider:  var(--ctp-overlay1);
+  --theme-link:     var(--ctp-mauve);
+  --theme-accent:   var(--ctp-blue);
 }
 
-html, body {
-  min-height: 100%;
+@theme inline {
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-text-main:     var(--text-main);
+  --color-text-muted:    var(--text-muted);
+  --color-bg-main:       var(--bg-main);
+  --color-bg-muted:      var(--bg-muted);
+  --color-bg-surface:    var(--bg-surface);
+  --color-border-main:   var(--border-main);
+  --color-border-code:   var(--border-code);
+  --color-theme-divider: var(--theme-divider);
+  --color-theme-link:    var(--theme-link);
+  --color-theme-accent:  var(--theme-accent);
+
+  --color-ctp-rosewater: var(--ctp-rosewater);
+  --color-ctp-flamingo:  var(--ctp-flamingo);
+  --color-ctp-pink:      var(--ctp-pink);
+  --color-ctp-mauve:     var(--ctp-mauve);
+  --color-ctp-red:       var(--ctp-red);
+  --color-ctp-maroon:    var(--ctp-maroon);
+  --color-ctp-peach:     var(--ctp-peach);
+  --color-ctp-yellow:    var(--ctp-yellow);
+  --color-ctp-green:     var(--ctp-green);
+  --color-ctp-teal:      var(--ctp-teal);
+  --color-ctp-sky:       var(--ctp-sky);
+  --color-ctp-sapphire:  var(--ctp-sapphire);
+  --color-ctp-blue:      var(--ctp-blue);
+  --color-ctp-lavender:  var(--ctp-lavender);
+  --color-ctp-crust:     var(--ctp-crust);
 }
 
 body {
@@ -52,9 +137,4 @@ body {
   font-family: var(--font-mono);
   color: var(--text-main);
   background-color: var(--bg-main);
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid var(--theme-divider);
 }

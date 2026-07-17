@@ -11,8 +11,8 @@ const currentPath = Astro.url.pathname;
       <Badges />
     </div>
   ) }
-  <div class="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--theme-divider)] pt-4">
-    <ul class="m-0 flex list-none flex-wrap items-center gap-4 p-0">
+  <div class="flex flex-wrap items-center justify-between gap-4 border-t border-dashed border-theme-divider pt-4">
+    <ul class="m-0 flex list-none flex-wrap items-center gap-3.5 p-0">
       {
         SOCIAL_LINKS.map((link) => (
           <li>
@@ -20,7 +20,7 @@ const currentPath = Astro.url.pathname;
               href={link.href}
               target={!link.href.startsWith("mailto:") && !link.href.startsWith("/") ? "_blank" : undefined}
               rel={!link.href.startsWith("mailto:") && !link.href.startsWith("/") ? "noreferrer" : undefined}
-              class="opacity-60 transition-opacity hover:opacity-100"
+              class="transition-colors duration-200 text-text-main hover:text-theme-link"
             >
               {link.label}
             </a>
@@ -28,6 +28,6 @@ const currentPath = Astro.url.pathname;
         ))
       }
     </ul>
-    <p class="opacity-60">@ {new Date().getFullYear()} {SITE.author}</p>
+    <p class="text-text-main">@ {new Date().getFullYear()} {SITE.author}</p>
   </div>
 </footer>

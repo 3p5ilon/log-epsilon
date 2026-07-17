@@ -10,7 +10,7 @@ const { posts, collection } = Astro.props;
       <li>
         <a
           href={`/${post.collection || collection}/${post.id}/`}
-          class="flex flex-col gap-1 py-2 text-base transition-opacity hover:opacity-70 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+          class="flex flex-col gap-1 py-2 text-base transition-colors duration-200 text-text-main hover:text-theme-link sm:flex-row sm:items-center sm:justify-between sm:gap-4"
         >
           <span>{post.data.title}</span>
           <time datetime={post.data.pubDate.toISOString()} class="tabular-nums text-sm opacity-70">

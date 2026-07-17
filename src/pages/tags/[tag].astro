@@ -28,7 +28,7 @@ const { posts } = Astro.props;
 
 <Layout title={`Posts tagged with ${tag}`} desc={`All posts tagged with ${tag} on ${SITE.title}.`}>
   <section class="space-y-8">
-    <h1 class="text-2xl font-bold">Posts tagged [{tag}]</h1>
+    <h1 class="text-2xl font-semibold">Posts tagged <span class="text-theme-accent">[{tag}]</span></h1>
     <PostList posts={posts} />
   </section>
 </Layout>

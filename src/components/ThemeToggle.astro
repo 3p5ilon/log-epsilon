@@ -1,7 +1,7 @@
 <button
   id="theme-toggle"
   type="button"
-  class="cursor-pointer opacity-60 transition-opacity hover:opacity-100"
+  class="cursor-pointer transition-colors duration-200 text-text-main hover:text-theme-link"
   aria-label="toggle theme"
 >
   [~]
@@ -9,7 +9,8 @@
 
 <script is:inline>
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("theme", next);
   });
 </script>
