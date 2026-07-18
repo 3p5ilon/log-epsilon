@@ -15,7 +15,7 @@ const hasTags = post.data.tags && post.data.tags.length > 0;
 
 <Layout title={`${post.data.title}`} desc={post.data.desc}>
   <article class="space-y-8">
-    <header class="space-y-3">
+    <header class="space-y-4">
       <h1 class="text-2xl font-semibold">{post.data.title}</h1>
       <div class="flex items-center gap-2 tabular-nums text-sm">
         <time class="opacity-70" datetime={post.data.pubDate.toISOString()}>

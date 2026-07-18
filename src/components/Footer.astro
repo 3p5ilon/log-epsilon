@@ -5,7 +5,7 @@ import Badges from "./Badges.astro";
 const currentPath = Astro.url.pathname;
 ---
 
-<footer class="mt-20 text-sm">
+<footer class="mt-16 text-sm">
   { (currentPath === "/" || currentPath === "/index.html") && (
     <div class="pb-5">
       <Badges />

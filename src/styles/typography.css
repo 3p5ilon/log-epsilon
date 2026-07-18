@@ -21,6 +21,10 @@
     @apply text-theme-link no-underline hover:underline underline-offset-2;
   }
 
+  /* p:not(aside *) {
+    @apply text-[15.5px];
+  } */
+
   :where(h1, h2, h3, h4, h5) {
     @apply font-semibold tracking-normal;
   }
