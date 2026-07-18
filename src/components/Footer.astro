@@ -2,15 +2,16 @@
 import { SITE, SOCIAL_LINKS } from "../consts";
 import Badges from "./Badges.astro";
 
-const currentPath = Astro.url.pathname;
+const isHomePage = Astro.url.pathname === "/";
 ---
 
 <footer class="mt-16 text-sm">
-  { (currentPath === "/" || currentPath === "/index.html") && (
+  {isHomePage && (
     <div class="pb-5">
       <Badges />
     </div>
-  ) }
+  )}
+
   <div class="flex flex-wrap items-center justify-between gap-4 border-t border-dashed border-theme-divider pt-4">
     <ul class="m-0 flex list-none flex-wrap items-center gap-3.5 p-0">
       {
@@ -28,6 +29,6 @@ const currentPath = Astro.url.pathname;
         ))
       }
     </ul>
-    <p class="text-text-main">@ {new Date().getFullYear()} {SITE.author}</p>
+    <p class="text-text-main">&copy; {new Date().getFullYear()} {SITE.author}</p>
   </div>
 </footer>
