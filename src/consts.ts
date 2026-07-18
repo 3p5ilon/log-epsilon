@@ -13,8 +13,8 @@ export const NAV_LINKS: Link[] = [
   { href: "/", label: "/" },
   { href: "/blog", label: "/log" },
   { href: "/notes", label: "/notes" },
-  { href: "/labs", label: "/lab" },
-  { href: "/library", label: "/library" },
+  { href: "/lab", label: "/lab" },
+  { href: "/now", label: "/now" },
   { href: "https://3p5ilon.github.io", label: "$" },
 ];
 
