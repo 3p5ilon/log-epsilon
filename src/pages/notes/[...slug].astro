@@ -1,11 +1,13 @@
 ---
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../components/PostLayout.astro";
+import PostImage from "../../components/PostImage.astro";
+import { getPostSlug } from "../../lib/post";
 
 export async function getStaticPaths() {
   const posts = await getCollection("notes", ({ data }) => !data.draft);
   return posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: getPostSlug(post) },
     props: { post },
   }));
 }
@@ -15,5 +17,5 @@ const { Content } = await render(post);
 ---
 
 <PostLayout post={post}>
-  <Content />
+  <Content components={{ img: PostImage, PostImage }} />
 </PostLayout>

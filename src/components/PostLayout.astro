@@ -13,7 +13,7 @@ const readingTime = POST.readingTime && words > 0 ? ` · ${minutes} min` : "";
 const hasTags = post.data.tags && post.data.tags.length > 0;
 ---
 
-<Layout title={`${post.data.title}`} desc={post.data.desc}>
+<Layout title={post.data.title} desc={post.data.desc}>
   <article class="space-y-8">
     <header class="space-y-4">
       <h1 class="text-2xl font-semibold">{post.data.title}</h1>

@@ -2,16 +2,16 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import PostList from "../../components/PostList.astro";
-import { SITE } from "../../consts";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 ---
 
-<Layout title="Blog" desc={`Articles and notes from ${SITE.title}.`}>
+<Layout title="Blog" desc={`Random thoughts, opinions, and reflections`}>
   <section class="space-y-8">
-    <h1 class="text-2xl font-semibold">Blog</h1>
+    <h2 class="text-2xl font-semibold">Random logs</h2>
+    <p>Thoughts, opinions, and reflections on random topics.</p>
     <PostList posts={posts} collection="blog" />
   </section>
 </Layout>
