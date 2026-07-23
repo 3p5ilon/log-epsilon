@@ -16,3 +16,5 @@ export type Post = {
   readingTime: boolean;
   tagsPosition: "top" | "bottom" | "hidden";
 };
+
+export type { Project, ProjectSection } from "./lib/projects";

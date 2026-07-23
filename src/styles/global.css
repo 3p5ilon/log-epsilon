@@ -55,6 +55,7 @@
   --bg-muted:       var(--ctp-mantle);
   --bg-surface:     var(--ctp-surface0);
   --border-main:    var(--ctp-surface2);
+  --border-hover:   var(--ctp-overlay2);
   --border-code:    var(--ctp-overlay0);
   --theme-divider:  var(--ctp-overlay0);
   --theme-link:     var(--ctp-mauve);
@@ -95,6 +96,7 @@
   --bg-muted:       var(--ctp-mantle);
   --bg-surface:     var(--ctp-surface0);
   --border-main:    var(--ctp-surface2);
+  --border-hover:   var(--ctp-overlay2);
   --border-code:    var(--ctp-surface1);
   --theme-divider:  var(--ctp-overlay0);
   --theme-link:     var(--ctp-mauve);
@@ -110,6 +112,7 @@
   --color-bg-muted:      var(--bg-muted);
   --color-bg-surface:    var(--bg-surface);
   --color-border-main:   var(--border-main);
+  --color-border-hover:  var(--border-hover);
   --color-border-code:   var(--border-code);
   --color-theme-divider: var(--theme-divider);
   --color-theme-link:    var(--theme-link);
@@ -129,6 +132,11 @@
   --color-ctp-sapphire:  var(--ctp-sapphire);
   --color-ctp-blue:      var(--ctp-blue);
   --color-ctp-lavender:  var(--ctp-lavender);
+  --color-ctp-subtext0:  var(--ctp-subtext0);
+  --color-ctp-subtext1:  var(--ctp-subtext1);
+  --color-ctp-overlay0:  var(--ctp-overlay0);
+  --color-ctp-overlay1:  var(--ctp-overlay1);
+  --color-ctp-overlay2:  var(--ctp-overlay2);
   --color-ctp-crust:     var(--ctp-crust);
 }
 
@@ -137,5 +145,5 @@ body {
 }
 
 ::selection {
-  @apply bg-theme-accent/25 text-text-main;
+  @apply bg-ctp-lavender/30 text-text-main;
 }

@@ -1,13 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { PROJECT_SECTIONS } from "../lib/projects";
 ---
 
 <Layout title="Labs" desc="Some projects and experiments.">
-  <section class="space-y-8">
-    <h1 class="text-2xl font-semibold">Labs</h1>
-    <p class="prose max-w-none">
-      Use this page to list case studies, shipped products, and experiments. Keep each project short
-      with one clear takeaway.
-    </p>
-  </section>
+  <div class="space-y-10">
+    <header class="space-y-4">
+      <h1 class="text-2xl font-semibold text-text-main">things i've built</h1>
+      <div class="ml-6 sm:ml-8 border-l-2 border-border-main pl-4 py-0.5 space-y-0.5 font-mono italic text-text-muted">
+        <p>some of the projects i’ve enjoyed building</p>
+        <p>
+          for everything else, checkout my <a
+            href="https://github.com/3p5ilon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-theme-link not-italic hover:underline"
+          >
+            github
+          </a>
+        </p>
+      </div>
+    </header>
+
+    {
+      PROJECT_SECTIONS.map((section) => (
+        <section class="space-y-4">
+          <h2 class="text-2xl font-semibold font-mono text-text-main">{section.title}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {section.projects.map((project) => (
+              <ProjectCard {...project} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
 </Layout>
