@@ -16,6 +16,8 @@ const currentPath = Astro.url.pathname;
               <a
                 href={item.href}
                 class={`transition-colors duration-200 hover:text-theme-link ${isActive ? "text-theme-link" : "text-text-main"}`}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
               >
                 [{item.label}]
               </a>
