@@ -2,20 +2,28 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Now" desc="What I'm doing right now!">
-  <section class="space-y-8">
-    <h1 class="text-2xl font-semibold">What I’m doing now!</h1>
-    <p class="prose max-w-none">
-      Here I keep an up-to-date list of the things I'm focusing on and what
-          I'm doing. Inspired by{" "}
-          <a
-        href="https://nownownow.com/about"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        nownownow.com
-          </a>
-          .
-    </p>
+<Layout title="Now" desc="What I'm doing right now">
+  <section>
+    <h2 class="text-2xl font-semibold">now</h2>
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+      <span class="shrink-0 text-theme-link">&gt;</span>
+      <p>
+        a snapshot of what i'm currently focused on, <br/> inspired by{" "}
+        <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-theme-link not-italic hover:underline"
+        >
+          nownownow.com
+        </a>
+      </p>
+    </div>
+    <div class="prose mt-8">
+      <h2>currently</h2>
+      <h2>reading</h2>
+      <h2>watching</h2>
+      <h2>listining</h2>
+    </div>
   </section>
 </Layout>

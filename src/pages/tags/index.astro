@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { SITE } from "../../consts";
 
 const blogs = await getCollection("blog", ({ data }) => !data.draft);
 const notes = await getCollection("notes", ({ data }) => !data.draft);
@@ -17,10 +16,14 @@ allPosts.forEach((post) => {
 const tags = Object.keys(tagCounts).sort();
 ---
 
-<Layout title="Tags" desc={`All tags used on ${SITE.title}.`}>
-  <section class="space-y-8">
-    <h1 class="text-2xl font-semibold">Tags</h1>
-    <div class="flex flex-wrap gap-4 text-base">
+<Layout title="Tags" desc={`All tags used on site.`}>
+  <section>
+    <h1 class="text-2xl font-semibold">tags</h1>
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+      <span class="shrink-0 text-theme-link">&gt;</span>
+      <p>browse posts by topic</p>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-4 text-sm">
       {
         tags.map((tag) => (
           <a

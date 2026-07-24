@@ -4,23 +4,22 @@ import ProjectCard from "../components/ProjectCard.astro";
 import { PROJECT_SECTIONS } from "../lib/projects";
 ---
 
-<Layout title="Labs" desc="Some projects and experiments.">
+<Layout title="Labs" desc="Some projects and experiments">
   <div class="space-y-10">
     <header class="space-y-4">
-      <h1 class="text-2xl font-semibold text-text-main">things i've built</h1>
-      <div class="ml-6 sm:ml-8 border-l-2 border-border-main pl-4 py-0.5 space-y-0.5 font-mono italic text-text-muted">
-        <p>some of the projects i’ve enjoyed building</p>
-        <p>
-          for everything else, checkout my <a
+    <h2 class="text-2xl font-semibold">labs</h2>
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+      <span class="shrink-0 text-theme-link">&gt;</span>
+      <p>some of the projects i’ve enjoyed building <br/> for everything else, checkout my <a
             href="https://github.com/3p5ilon"
             target="_blank"
             rel="noopener noreferrer"
             class="text-theme-link not-italic hover:underline"
           >
             github
-          </a>
+          </a>.
         </p>
-      </div>
+    </div>
     </header>
 
     {

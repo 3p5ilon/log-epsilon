@@ -8,10 +8,15 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 );
 ---
 
-<Layout title="Blog" desc={`Random thoughts, opinions, and reflections`}>
-  <section class="space-y-8">
-    <h2 class="text-2xl font-semibold">Random logs</h2>
-    <p>Thoughts, opinions, and reflections on random topics.</p>
-    <PostList posts={posts} collection="blog" />
+<Layout title="Blog" desc={`Thoughts, ideas, and reflections on whatever interests me`}>
+   <section>
+    <h2 class="text-2xl font-semibold">logs</h2>
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+      <span class="shrink-0 text-theme-link">&gt;</span>
+      <p>thoughts, ideas, and reflections on whatever interests me</p>
+    </div>
+    <div class="mt-6">
+      <PostList posts={posts} collection="blog" />
+    </div>
   </section>
 </Layout>
