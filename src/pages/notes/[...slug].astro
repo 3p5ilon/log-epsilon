@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../components/PostLayout.astro";
 import PostImage from "../../components/PostImage.astro";
+import Callout from "../../components/Callout.astro";
 import { getPostSlug } from "../../lib/post";
 
 export async function getStaticPaths() {
@@ -17,5 +18,5 @@ const { Content } = await render(post);
 ---
 
 <PostLayout post={post}>
-  <Content components={{ img: PostImage, PostImage }} />
+  <Content components={{ img: PostImage, Callout }} />
 </PostLayout>
