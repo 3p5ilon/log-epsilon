@@ -1,0 +1,52 @@
+---
+import type { LastfmTrack } from "../../lib/now/types";
+
+interface Props {
+  track: LastfmTrack;
+}
+
+const { track } = Astro.props;
+---
+
+<section class="space-y-4 pb-4">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-xl font-semibold font-mono text-text-main">listening</h2>
+    <a
+      href="https://www.last.fm/user/log3p5ilon"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
+    >
+      [/last.fm]
+    </a>
+  </div>
+  <div class="flex items-start gap-3.5 sm:gap-5">
+    {track.image && (
+      <a href={track.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block">
+        <img
+          id="track-img"
+          src={track.image}
+          alt={track.title}
+          class="w-28 sm:w-36 aspect-square object-cover rounded-none block"
+          loading="lazy"
+        />
+      </a>
+    )}
+    <div class="flex-1 min-w-0">
+      <a
+        id="track-title"
+        href={track.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
+      >
+        {track.title}
+      </a>
+      {track.artist && (
+        <p id="track-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
+          {track.artist}
+        </p>
+      )}
+    </div>
+  </div>
+</section>

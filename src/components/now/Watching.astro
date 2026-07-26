@@ -1,0 +1,57 @@
+---
+import type { LetterboxdMovie } from "../../lib/now/types";
+
+interface Props {
+  movie: LetterboxdMovie;
+}
+
+const { movie } = Astro.props;
+---
+
+<section class="space-y-4 pb-4">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-xl font-semibold font-mono text-text-main">watching</h2>
+    <a
+      href="https://letterboxd.com/3p5ilon/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
+    >
+      [/letterboxd]
+    </a>
+  </div>
+  <div class="flex items-start gap-3.5 sm:gap-5">
+    {movie.image && (
+      <a href={movie.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block">
+        <img
+          id="movie-img"
+          src={movie.image}
+          alt={movie.title}
+          class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block"
+          loading="lazy"
+        />
+      </a>
+    )}
+    <div class="flex-1 min-w-0">
+      <a
+        id="movie-title"
+        href={movie.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
+      >
+        {movie.title}
+        {movie.year && (
+          <span id="movie-year" class="text-sm font-normal text-text-muted ml-2">
+            ({movie.year})
+          </span>
+        )}
+      </a>
+      {movie.stars && (
+        <span id="movie-stars" class="mt-1 block text-base sm:text-lg text-ctp-yellow leading-tight">
+          {movie.stars}
+        </span>
+      )}
+    </div>
+  </div>
+</section>

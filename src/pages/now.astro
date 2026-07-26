@@ -1,29 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Reading from "../components/now/Reading.astro";
+import Watching from "../components/now/Watching.astro";
+import Listening from "../components/now/Listening.astro";
+import { getNowFeeds } from "../lib/now";
+
+const { book, movie, track } = await getNowFeeds();
 ---
 
-<Layout title="Now" desc="What I'm doing right now">
-  <section>
-    <h2 class="text-2xl font-semibold">now</h2>
-    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
-      <span class="shrink-0 text-theme-link">&gt;</span>
-      <p>
-        what i'm doing right now, inspired by{" "}
-        <a
-          href="https://nownownow.com/about"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-theme-link not-italic hover:underline"
-        >
-          nownownow.com
-        </a>
-      </p>
-    </div>
-    <div class="prose mt-8">
-      <h2>currently</h2>
-      <h2>reading</h2>
-      <h2>watching</h2>
-      <h2>listining</h2>
+<Layout title="now" desc="what i'm doing right now">
+  <section class="space-y-8">
+    <header class="space-y-4">
+      <h1 class="text-2xl font-semibold text-text-main">now</h1>
+      <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+        <span class="shrink-0 text-theme-link">&gt;</span>
+        <p>
+          what i'm doing right now, inspired by{" "}
+          <a
+            href="https://nownownow.com/about"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-theme-link not-italic hover:underline"
+          >
+            nownownow.com
+          </a>
+        </p>
+      </div>
+    </header>
+
+    <div class="mt-8 space-y-8">
+      <Reading book={book} />
+      <Watching movie={movie} />
+      <Listening track={track} />
     </div>
   </section>
 </Layout>
