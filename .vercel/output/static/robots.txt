@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://3p5ilon.vercel.app/sitemap-index.xml
