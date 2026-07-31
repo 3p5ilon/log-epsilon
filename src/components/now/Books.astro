@@ -1,16 +1,16 @@
 ---
-import type { GoodreadsBook } from "../../lib/now";
+import type { GoodreadsBook } from "../../lib/now/goodreads";
 
 interface Props {
-  book: GoodreadsBook | null;
+  books: GoodreadsBook | null;
 }
 
-const { book } = Astro.props;
+const { books } = Astro.props;
 ---
 
-<section class="space-y-4 pb-4" id="reading-section">
+<section class="space-y-4 pb-4" id="books-section">
   <div class="flex items-baseline justify-between">
-    <h2 class="text-xl font-semibold font-mono text-text-main">reading</h2>
+    <h2 class="text-xl font-semibold font-mono text-text-main">books</h2>
     <a
       href="https://www.goodreads.com/akshattalapa"
       target="_blank"
@@ -20,45 +20,45 @@ const { book } = Astro.props;
       [/goodreads]
     </a>
   </div>
-  <div class="flex items-start gap-3.5 sm:gap-5" id="reading-content">
-    {book?.image ? (
-      <a href={book.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="book-img-link">
+  <div class="flex items-start gap-3.5 sm:gap-5" id="books-content">
+    {books?.image ? (
+      <a href={books.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="books-img-link">
         <img
-          id="book-img"
-          src={book.image}
-          alt={book.title}
+          id="books-img"
+          src={books.image}
+          alt={books.title}
           class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block border border-theme-divider/40"
           loading="lazy"
         />
       </a>
     ) : (
       <div
-        id="book-img-placeholder"
+        id="books-img-placeholder"
         class="w-28 sm:w-36 aspect-[2/3] bg-theme-divider/10 border border-theme-divider/40 shrink-0 flex items-center justify-center text-text-muted text-xs font-mono"
       >
         [no cover]
       </div>
     )}
     <div class="flex-1 min-w-0">
-      {book ? (
+      {books ? (
         <>
           <a
-            id="book-title"
-            href={book.link}
+            id="books-title"
+            href={books.link}
             target="_blank"
             rel="noopener noreferrer"
             class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
           >
-            {book.title}
+            {books.title}
           </a>
-          {book.author && (
-            <p id="book-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
-              {book.author}
+          {books.author && (
+            <p id="books-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
+              {books.author}
             </p>
           )}
         </>
       ) : (
-        <p id="book-error" class="font-mono text-base text-text-muted italic my-0">
+        <p id="books-error" class="font-mono text-base text-text-muted italic my-0">
           currently unavailable
         </p>
       )}

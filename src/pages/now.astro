@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Reading from "../components/now/Reading.astro";
-import Watching from "../components/now/Watching.astro";
-import Listening from "../components/now/Listening.astro";
+import Books from "../components/now/Books.astro";
+import Films from "../components/now/Films.astro";
+import Shows from "../components/now/Shows.astro";
+import Music from "../components/now/Music.astro";
+import Games from "../components/now/Games.astro";
 import { getNowFeeds } from "../lib/now";
 
-const { book, movie, track } = await getNowFeeds();
+const { books, films, shows, music, games } = await getNowFeeds();
 ---
 
 <Layout title="now" desc="what i'm doing right now">
@@ -29,9 +31,11 @@ const { book, movie, track } = await getNowFeeds();
     </header>
 
     <div class="mt-8 space-y-8">
-      <Reading book={book} />
-      <Watching movie={movie} />
-      <Listening track={track} />
+      <Books books={books} />
+      <Films films={films} />
+      <Shows shows={shows} />
+      <Music music={music} />
+      <Games games={games} />
     </div>
   </section>
 </Layout>

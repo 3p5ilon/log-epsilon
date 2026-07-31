@@ -1,0 +1,77 @@
+---
+import type { BackloggdGame } from "../../lib/now/backloggd";
+
+interface Props {
+  games: BackloggdGame | null;
+}
+
+const { games } = Astro.props;
+---
+
+<section class="space-y-4 pb-4" id="games-section">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-xl font-semibold font-mono text-text-main">games</h2>
+    <a
+      href="https://backloggd.com/u/3p5ilon"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
+    >
+      [/backloggd]
+    </a>
+  </div>
+  <div class="flex items-start gap-3.5 sm:gap-5" id="games-content">
+    {games?.image ? (
+      <a href={games.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="games-img-link">
+        <img
+          id="games-img"
+          src={games.image}
+          alt={games.title}
+          class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block border border-theme-divider/40"
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <div
+        id="games-img-placeholder"
+        class="w-28 sm:w-36 aspect-[2/3] bg-theme-divider/10 border border-theme-divider/40 shrink-0 flex items-center justify-center text-text-muted text-xs font-mono"
+      >
+        [no cover]
+      </div>
+    )}
+    <div class="flex-1 min-w-0">
+      {games ? (
+        <>
+          <a
+            id="games-title"
+            href={games.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
+          >
+            {games.title}
+          </a>
+          {games.company && (
+            <p id="games-company" class="text-sm text-text-muted mt-1 mb-0 leading-relaxed">
+              {games.company}
+            </p>
+          )}
+          {games.stars && (
+            <span id="games-stars" class="mt-1 block text-base sm:text-lg text-ctp-yellow leading-tight">
+              {games.stars}
+            </span>
+          )}
+          {games.subtitle && (
+            <p id="games-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
+              {games.subtitle}
+            </p>
+          )}
+        </>
+      ) : (
+        <p id="games-error" class="font-mono text-base text-text-muted italic my-0">
+          currently unavailable
+        </p>
+      )}
+    </div>
+  </div>
+</section>

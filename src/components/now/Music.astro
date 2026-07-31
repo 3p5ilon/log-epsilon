@@ -1,16 +1,16 @@
 ---
-import type { LastfmTrack } from "../../lib/now";
+import type { LastfmMusic } from "../../lib/now/lastfm";
 
 interface Props {
-  track: LastfmTrack | null;
+  music: LastfmMusic | null;
 }
 
-const { track } = Astro.props;
+const { music } = Astro.props;
 ---
 
-<section class="space-y-4 pb-4" id="listening-section">
+<section class="space-y-4 pb-4" id="music-section">
   <div class="flex items-baseline justify-between">
-    <h2 class="text-xl font-semibold font-mono text-text-main">listening</h2>
+    <h2 class="text-xl font-semibold font-mono text-text-main">music</h2>
     <a
       href="https://www.last.fm/user/log3p5ilon"
       target="_blank"
@@ -20,45 +20,45 @@ const { track } = Astro.props;
       [/last.fm]
     </a>
   </div>
-  <div class="flex items-start gap-3.5 sm:gap-5" id="listening-content">
-    {track?.image ? (
-      <a href={track.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="track-img-link">
+  <div class="flex items-start gap-3.5 sm:gap-5" id="music-content">
+    {music?.image ? (
+      <a href={music.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="music-img-link">
         <img
-          id="track-img"
-          src={track.image}
-          alt={track.title}
+          id="music-img"
+          src={music.image}
+          alt={music.title}
           class="w-28 sm:w-36 aspect-square object-cover rounded-none block border border-theme-divider/40"
           loading="lazy"
         />
       </a>
     ) : (
       <div
-        id="track-img-placeholder"
+        id="music-img-placeholder"
         class="w-28 sm:w-36 aspect-square bg-theme-divider/10 border border-theme-divider/40 shrink-0 flex items-center justify-center text-text-muted text-xs font-mono"
       >
         [no cover]
       </div>
     )}
     <div class="flex-1 min-w-0">
-      {track ? (
+      {music ? (
         <>
           <a
-            id="track-title"
-            href={track.link}
+            id="music-title"
+            href={music.link}
             target="_blank"
             rel="noopener noreferrer"
             class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
           >
-            {track.title}
+            {music.title}
           </a>
-          {track.artist && (
-            <p id="track-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
-              {track.artist}
+          {music.artist && (
+            <p id="music-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
+              {music.artist}
             </p>
           )}
         </>
       ) : (
-        <p id="track-error" class="font-mono text-base text-text-muted italic my-0">
+        <p id="music-error" class="font-mono text-base text-text-muted italic my-0">
           currently unavailable
         </p>
       )}

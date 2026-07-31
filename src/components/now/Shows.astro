@@ -1,0 +1,72 @@
+---
+import type { TraktShow } from "../../lib/now/trakt";
+
+interface Props {
+  shows: TraktShow | null;
+}
+
+const { shows } = Astro.props;
+---
+
+<section class="space-y-4 pb-4" id="shows-section">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-xl font-semibold font-mono text-text-main">shows</h2>
+    <a
+      href="https://trakt.tv/users/3p5ilon"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
+    >
+      [/trakt]
+    </a>
+  </div>
+  <div class="flex items-start gap-3.5 sm:gap-5" id="shows-content">
+    {shows?.image ? (
+      <a href={shows.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="shows-img-link">
+        <img
+          id="shows-img"
+          src={shows.image}
+          alt={shows.title}
+          class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block border border-theme-divider/40"
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <div
+        id="shows-img-placeholder"
+        class="w-28 sm:w-36 aspect-[2/3] bg-theme-divider/10 border border-theme-divider/40 shrink-0 flex items-center justify-center text-text-muted text-xs font-mono"
+      >
+        [no poster]
+      </div>
+    )}
+    <div class="flex-1 min-w-0">
+      {shows ? (
+        <>
+          <a
+            id="shows-title"
+            href={shows.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight hover:underline break-words"
+          >
+            {shows.title}
+          </a>
+          {shows.director && (
+            <p id="shows-director" class="text-sm text-text-muted mt-1 mb-0 leading-relaxed">
+              {shows.director}
+            </p>
+          )}
+          {shows.subtitle && (
+            <p id="shows-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">
+              {shows.subtitle}
+            </p>
+          )}
+        </>
+      ) : (
+        <p id="shows-error" class="font-mono text-base text-text-muted italic my-0">
+          currently unavailable
+        </p>
+      )}
+    </div>
+  </div>
+</section>

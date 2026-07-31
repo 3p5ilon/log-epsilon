@@ -1,0 +1,77 @@
+---
+import type { LetterboxdFilm } from "../../lib/now/letterboxd";
+
+interface Props {
+  films: LetterboxdFilm | null;
+}
+
+const { films } = Astro.props;
+---
+
+<section class="space-y-4 pb-4" id="films-section">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-xl font-semibold font-mono text-text-main">films</h2>
+    <a
+      href="https://letterboxd.com/3p5ilon/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
+    >
+      [/letterboxd]
+    </a>
+  </div>
+  <div class="flex items-start gap-3.5 sm:gap-5" id="films-content">
+    {films?.image ? (
+      <a href={films.link} target="_blank" rel="noopener noreferrer" class="shrink-0 block" id="films-img-link">
+        <img
+          id="films-img"
+          src={films.image}
+          alt={films.title}
+          class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block border border-theme-divider/40"
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <div
+        id="films-img-placeholder"
+        class="w-28 sm:w-36 aspect-[2/3] bg-theme-divider/10 border border-theme-divider/40 shrink-0 flex items-center justify-center text-text-muted text-xs font-mono"
+      >
+        [no poster]
+      </div>
+    )}
+    <div class="flex-1 min-w-0">
+      {films ? (
+        <>
+          <a
+            id="films-title"
+            href={films.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight break-words"
+          >
+            <span class="group-hover:underline">{films.title}</span>
+            {films.year && (
+              <span id="films-year" class="text-sm font-normal text-text-muted group-hover:text-theme-link ml-1.5 inline-block no-underline">
+                ({films.year})
+              </span>
+            )}
+          </a>
+          {films.director && (
+            <p id="films-director" class="text-sm text-text-muted mt-1 mb-0 leading-relaxed">
+              {films.director}
+            </p>
+          )}
+          {films.stars && (
+            <span id="films-stars" class="mt-1 block text-base sm:text-lg text-ctp-yellow leading-tight">
+              {films.stars}
+            </span>
+          )}
+        </>
+      ) : (
+        <p id="films-error" class="font-mono text-base text-text-muted italic my-0">
+          currently unavailable
+        </p>
+      )}
+    </div>
+  </div>
+</section>
