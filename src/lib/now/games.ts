@@ -21,25 +21,32 @@ function formatRating(raw: string | undefined): string {
   if (!raw) return "";
   const n = parseFloat(raw);
   if (isNaN(n)) return "";
-  // data-rating is 0–10; convert to 0–5 stars
   const stars = n / 2;
   return "★".repeat(Math.floor(stars)) + (stars % 1 >= 0.5 ? "½" : "");
 }
 
 const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
 
 export async function getBackloggdGames(username = "3p5ilon"): Promise<BackloggdGame | null> {
   try {
+    const timestamp = Date.now();
     const urls = [
-      `https://backloggd.com/u/${username}/playing`,
-      `https://backloggd.com/u/${username}/games?type=playing`,
-      `https://backloggd.com/u/${username}/games`,
+      `https://backloggd.com/u/${username}/playing?_t=${timestamp}`,
+      `https://backloggd.com/u/${username}/games?type=playing&_t=${timestamp}`,
+      `https://backloggd.com/u/${username}/games?_t=${timestamp}`,
     ];
 
     for (const url of urls) {
       const res = await fetch(url, {
-        headers: { "User-Agent": UA, Accept: "text/html", "Accept-Language": "en-US,en;q=0.9" },
+        cache: "no-store",
+        headers: {
+          "User-Agent": UA,
+          Accept: "text/html",
+          "Accept-Language": "en-US,en;q=0.9",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+        },
         signal: AbortSignal.timeout(5000),
       });
       if (!res.ok) continue;
@@ -65,9 +72,16 @@ export async function getBackloggdGames(username = "3p5ilon"): Promise<Backloggd
 
         let company: string | undefined;
         try {
-          const gameRes = await fetch(`https://backloggd.com${slug}`, {
-            headers: { "User-Agent": UA, Accept: "text/html", "Accept-Language": "en-US,en;q=0.9" },
-            signal: AbortSignal.timeout(3500),
+          const gameRes = await fetch(`https://backloggd.com${slug}?_t=${timestamp}`, {
+            cache: "no-store",
+            headers: {
+              "User-Agent": UA,
+              Accept: "text/html",
+              "Accept-Language": "en-US,en;q=0.9",
+              "Cache-Control": "no-cache, no-store, must-revalidate",
+              Pragma: "no-cache",
+            },
+            signal: AbortSignal.timeout(4000),
           });
           if (gameRes.ok) {
             const gameHtml = await gameRes.text();
@@ -82,7 +96,7 @@ export async function getBackloggdGames(username = "3p5ilon"): Promise<Backloggd
       }
     }
   } catch (err) {
-    console.error("[now/backloggd] fetch failed:", err);
+    console.error("[now/games] fetch failed:", err);
   }
 
   return null;

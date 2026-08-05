@@ -19,10 +19,19 @@ function decodeEntities(str: string): string {
 
 export async function getGoodreadsReading(userId = "128272854"): Promise<GoodreadsBook | null> {
   try {
-    const res = await fetch(`https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading`, {
-      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
-      signal: AbortSignal.timeout(4000),
+    const timestamp = Date.now();
+    const url = `https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading&_t=${timestamp}`;
+
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+      },
+      signal: AbortSignal.timeout(5000),
     });
+
     if (!res.ok) return null;
 
     const parser = new XMLParser({ ignoreAttributes: false, cdataPropName: "__cdata" });
@@ -47,7 +56,7 @@ export async function getGoodreadsReading(userId = "128272854"): Promise<Goodrea
       link: link || `https://www.goodreads.com/user/show/${userId}`,
     };
   } catch (err) {
-    console.error("[now/goodreads] Failed to fetch reading feed:", err);
+    console.error("[now/books] Failed to fetch Goodreads feed:", err);
     return null;
   }
 }

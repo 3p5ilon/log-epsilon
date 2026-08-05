@@ -1,8 +1,8 @@
 ---
-import type { TraktShow } from "../../lib/now/trakt";
+import type { SerializdShow } from "../../lib/now/shows";
 
 interface Props {
-  shows: TraktShow | null;
+  shows: SerializdShow | null;
 }
 
 const { shows } = Astro.props;
@@ -12,12 +12,12 @@ const { shows } = Astro.props;
   <div class="flex items-baseline justify-between">
     <h2 class="text-xl font-semibold font-mono text-text-main">shows</h2>
     <a
-      href="https://trakt.tv/users/3p5ilon"
+      href="https://www.serializd.com/user/3p5ilon"
       target="_blank"
       rel="noopener noreferrer"
       class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
     >
-      [/trakt]
+      [/serializd]
     </a>
   </div>
   <div class="flex items-start gap-3.5 sm:gap-5" id="shows-content">
@@ -55,6 +55,11 @@ const { shows } = Astro.props;
             <p id="shows-director" class="text-sm text-text-muted mt-1 mb-0 leading-relaxed">
               {shows.director}
             </p>
+          )}
+          {shows.stars && (
+            <span id="shows-stars" class="mt-1 block text-base sm:text-lg text-ctp-yellow leading-tight">
+              {shows.stars}
+            </span>
           )}
           {shows.subtitle && (
             <p id="shows-subtitle" class="text-sm text-text-muted mt-1.5 mb-0 leading-relaxed">

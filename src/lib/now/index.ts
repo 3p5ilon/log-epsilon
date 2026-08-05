@@ -1,33 +1,33 @@
-import { getGoodreadsReading, type GoodreadsBook } from "./goodreads";
-import { getLetterboxdWatching, type LetterboxdFilm } from "./letterboxd";
-import { getTraktShows, type TraktShow } from "./trakt";
-import { getLastfmListening, type LastfmMusic } from "./lastfm";
-import { getBackloggdGames, type BackloggdGame } from "./backloggd";
-
-export type { GoodreadsBook, LetterboxdFilm, TraktShow, LastfmMusic, BackloggdGame };
+import { getGoodreadsReading, type GoodreadsBook } from "./books";
+import { getLetterboxdWatching, type LetterboxdFilm } from "./films";
+import { getSerializdShows, type SerializdShow } from "./shows";
+import { getLastfmListening, type LastfmMusic } from "./music";
+import { getBackloggdGames, type BackloggdGame } from "./games";
 
 export interface NowFeedsData {
   books: GoodreadsBook | null;
   films: LetterboxdFilm | null;
-  shows: TraktShow | null;
+  shows: SerializdShow | null;
   music: LastfmMusic | null;
   games: BackloggdGame | null;
+  updatedAt: string;
 }
 
 export async function getNowFeeds(): Promise<NowFeedsData> {
-  const [books, films, shows, music, games] = await Promise.allSettled([
+  const [booksRes, filmsRes, showsRes, musicRes, gamesRes] = await Promise.allSettled([
     getGoodreadsReading(),
     getLetterboxdWatching(),
-    getTraktShows(),
+    getSerializdShows(),
     getLastfmListening(),
     getBackloggdGames(),
   ]);
 
   return {
-    books: books.status === "fulfilled" ? books.value : null,
-    films: films.status === "fulfilled" ? films.value : null,
-    shows: shows.status === "fulfilled" ? shows.value : null,
-    music: music.status === "fulfilled" ? music.value : null,
-    games: games.status === "fulfilled" ? games.value : null,
+    books: booksRes.status === "fulfilled" ? booksRes.value : null,
+    films: filmsRes.status === "fulfilled" ? filmsRes.value : null,
+    shows: showsRes.status === "fulfilled" ? showsRes.value : null,
+    music: musicRes.status === "fulfilled" ? musicRes.value : null,
+    games: gamesRes.status === "fulfilled" ? gamesRes.value : null,
+    updatedAt: new Date().toISOString(),
   };
 }

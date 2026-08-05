@@ -8,8 +8,11 @@ export const GET: APIRoute = async () => {
   return new Response(JSON.stringify(data), {
     status: 200,
     headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=120",
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+      Pragma: "no-cache",
+      Expires: "0",
+      "Surrogate-Control": "no-store",
     },
   });
 };

@@ -17,13 +17,20 @@ function decodeEntities(str: string): string {
 
 export async function getLastfmListening(username = "log3p5ilon"): Promise<LastfmMusic | null> {
   const apiKey = (import.meta.env?.LASTFM_API_KEY || process.env?.LASTFM_API_KEY || "").trim();
+  const timestamp = Date.now();
 
   if (apiKey) {
     try {
-      const res = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`,
-        { signal: AbortSignal.timeout(4000) }
-      );
+      const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1&_t=${timestamp}`;
+      const res = await fetch(url, {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+        },
+        signal: AbortSignal.timeout(5000),
+      });
+
       if (res.ok) {
         const data = await res.json();
         const raw = data?.recenttracks?.track?.[0];
@@ -36,7 +43,7 @@ export async function getLastfmListening(username = "log3p5ilon"): Promise<Lastf
             images.find((i) => i.size === "extralarge") ||
             images.find((i) => i.size === "large") ||
             images.at(-1);
-          
+
           let image = img?.["#text"] || undefined;
           if (image) {
             image = image.replace(/\/(34s|64s|174s)\//, "/300x300/");
@@ -48,18 +55,24 @@ export async function getLastfmListening(username = "log3p5ilon"): Promise<Lastf
         }
       }
     } catch (err) {
-      console.error("[now/lastfm-api] Official API request failed:", err);
+      console.error("[now/music] Official API request failed:", err);
     }
   }
 
+  // HTML fallback
   try {
-    const res = await fetch(`https://www.last.fm/user/${username}`, {
+    const url = `https://www.last.fm/user/${username}?_t=${timestamp}`;
+    const res = await fetch(url, {
+      cache: "no-store",
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
       },
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(5000),
     });
+
     if (res.ok) {
       const html = await res.text();
       const trackLink = html.match(/class="chartlist-name"[\s\S]*?href="(\/music[^"]+)"/)?.[1];
@@ -77,7 +90,7 @@ export async function getLastfmListening(username = "log3p5ilon"): Promise<Lastf
       }
     }
   } catch (err) {
-    console.error("[now/lastfm-html] HTML fallback failed:", err);
+    console.error("[now/music] HTML fallback failed:", err);
   }
 
   return null;

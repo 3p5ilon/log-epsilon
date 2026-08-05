@@ -27,10 +27,19 @@ function formatRating(rating?: string | number): string {
 
 export async function getLetterboxdWatching(username = "3p5ilon"): Promise<LetterboxdFilm | null> {
   try {
-    const res = await fetch(`https://letterboxd.com/${username}/rss/`, {
-      headers: { "User-Agent": "Mozilla/5.0" },
-      signal: AbortSignal.timeout(4000),
+    const timestamp = Date.now();
+    const url = `https://letterboxd.com/${username}/rss/?_t=${timestamp}`;
+
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+      },
+      signal: AbortSignal.timeout(5000),
     });
+
     if (!res.ok) return null;
 
     const parser = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true });
@@ -56,12 +65,15 @@ export async function getLetterboxdWatching(username = "3p5ilon"): Promise<Lette
     if (link && link.includes("/film/")) {
       const baseFilmUrl = link.replace(/letterboxd\.com\/[^\/]+\/film\//, "letterboxd.com/film/");
       try {
-        const filmRes = await fetch(baseFilmUrl, {
+        const filmRes = await fetch(`${baseFilmUrl}?_t=${timestamp}`, {
+          cache: "no-store",
           headers: {
             "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            Pragma: "no-cache",
           },
-          signal: AbortSignal.timeout(3000),
+          signal: AbortSignal.timeout(4000),
         });
         if (filmRes.ok) {
           const filmHtml = await filmRes.text();
@@ -84,7 +96,7 @@ export async function getLetterboxdWatching(username = "3p5ilon"): Promise<Lette
       link,
     };
   } catch (err) {
-    console.error("[now/letterboxd] Failed to fetch watching feed:", err);
+    console.error("[now/films] Failed to fetch watching feed:", err);
     return null;
   }
 }
