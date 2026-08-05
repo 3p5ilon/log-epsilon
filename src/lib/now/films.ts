@@ -1,6 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
+import { decodeEntities, htmlFetchInit, starsFromDecimal } from "./utils";
 
-export interface LetterboxdFilm {
+export interface Film {
   title: string;
   year?: string;
   director?: string;
@@ -9,37 +10,17 @@ export interface LetterboxdFilm {
   link: string;
 }
 
-function decodeEntities(str: string): string {
-  if (!str) return "";
-  return str
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-}
+export type LetterboxdFilm = Film;
 
-function formatRating(rating?: string | number): string {
-  if (rating === undefined || rating === null || rating === "") return "";
-  const num = typeof rating === "number" ? rating : parseFloat(rating);
-  return isNaN(num) ? "" : "★".repeat(Math.floor(num)) + (num % 1 >= 0.5 ? "½" : "");
-}
+const LETTERBOXD_USERNAME = "3p5ilon";
 
-export async function getLetterboxdWatching(username = "3p5ilon"): Promise<LetterboxdFilm | null> {
+export async function getFilm(): Promise<Film | null> {
   try {
-    const timestamp = Date.now();
-    const url = `https://letterboxd.com/${username}/rss/?_t=${timestamp}`;
-
-    const res = await fetch(url, {
-      cache: "no-store",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-      },
-      signal: AbortSignal.timeout(5000),
-    });
-
+    const ts = Date.now();
+    const res = await fetch(
+      `https://letterboxd.com/${LETTERBOXD_USERNAME}/rss/?_t=${ts}`,
+      htmlFetchInit()
+    );
     if (!res.ok) return null;
 
     const parser = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true });
@@ -52,8 +33,8 @@ export async function getLetterboxdWatching(username = "3p5ilon"): Promise<Lette
     if (!title) return null;
 
     const year = item.filmYear ? String(item.filmYear) : undefined;
-    const stars = formatRating(item.memberRating);
-    const link = String(item.link || `https://letterboxd.com/${username}/`).trim();
+    const stars = starsFromDecimal(item.memberRating);
+    const link = String(item.link || `https://letterboxd.com/${LETTERBOXD_USERNAME}/`).trim();
 
     let image: string | undefined;
     if (item.description) {
@@ -61,42 +42,27 @@ export async function getLetterboxdWatching(username = "3p5ilon"): Promise<Lette
       if (imgMatch) image = imgMatch[1];
     }
 
+    // Fetch director from film page
     let director: string | undefined;
-    if (link && link.includes("/film/")) {
-      const baseFilmUrl = link.replace(/letterboxd\.com\/[^\/]+\/film\//, "letterboxd.com/film/");
+    if (link.includes("/film/")) {
+      const filmUrl = link.replace(/letterboxd\.com\/[^/]+\/film\//, "letterboxd.com/film/");
       try {
-        const filmRes = await fetch(`${baseFilmUrl}?_t=${timestamp}`, {
-          cache: "no-store",
-          headers: {
-            "User-Agent":
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            Pragma: "no-cache",
-          },
-          signal: AbortSignal.timeout(4000),
-        });
+        const filmRes = await fetch(`${filmUrl}?_t=${ts}`, htmlFetchInit(4000));
         if (filmRes.ok) {
-          const filmHtml = await filmRes.text();
-          const dirMatch =
-            filmHtml.match(/href="\/director\/([^"]+)"[^>]*class="[^"]*contributor[^"]*"[^>]*>([^<]+)<\/a>/i) ||
-            filmHtml.match(/<a[^>]+href="\/director\/[^"]+"[^>]*>([^<]+)<\/a>/i);
-          if (dirMatch) {
-            director = decodeEntities(dirMatch[2] || dirMatch[1]).trim();
-          }
+          const html = await filmRes.text();
+          const m =
+            html.match(/href="\/director\/[^"]*"[^>]*class="[^"]*contributor[^"]*"[^>]*>([^<]+)<\/a>/i) ||
+            html.match(/<a[^>]+href="\/director\/[^"]+"[^>]*>([^<]+)<\/a>/i);
+          if (m) director = decodeEntities(m[1]).trim();
         }
       } catch {}
     }
 
-    return {
-      title,
-      year,
-      director,
-      stars: stars || undefined,
-      image,
-      link,
-    };
+    return { title, year, director, stars, image, link };
   } catch (err) {
-    console.error("[now/films] Failed to fetch watching feed:", err);
+    console.error("[now/films] Failed to fetch Letterboxd feed:", err);
     return null;
   }
 }
+
+export const getLetterboxdWatching = getFilm;

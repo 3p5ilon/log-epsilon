@@ -1,25 +1,25 @@
-import { getGoodreadsReading, type GoodreadsBook } from "./books";
-import { getLetterboxdWatching, type LetterboxdFilm } from "./films";
-import { getSerializdShows, type SerializdShow } from "./shows";
-import { getLastfmListening, type LastfmMusic } from "./music";
-import { getBackloggdGames, type BackloggdGame } from "./games";
+import { getBook, type Book } from "./books";
+import { getFilm, type Film } from "./films";
+import { getShow, type Show } from "./shows";
+import { getMusic, type Music } from "./music";
+import { getGame, type Game } from "./games";
 
 export interface NowFeedsData {
-  books: GoodreadsBook | null;
-  films: LetterboxdFilm | null;
-  shows: SerializdShow | null;
-  music: LastfmMusic | null;
-  games: BackloggdGame | null;
+  books: Book | null;
+  films: Film | null;
+  shows: Show | null;
+  music: Music | null;
+  games: Game | null;
   updatedAt: string;
 }
 
 export async function getNowFeeds(): Promise<NowFeedsData> {
   const [booksRes, filmsRes, showsRes, musicRes, gamesRes] = await Promise.allSettled([
-    getGoodreadsReading(),
-    getLetterboxdWatching(),
-    getSerializdShows(),
-    getLastfmListening(),
-    getBackloggdGames(),
+    getBook(),
+    getFilm(),
+    getShow(),
+    getMusic(),
+    getGame(),
   ]);
 
   return {

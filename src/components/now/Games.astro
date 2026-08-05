@@ -12,7 +12,7 @@ const { games } = Astro.props;
   <div class="flex items-baseline justify-between">
     <h2 class="text-xl font-semibold font-mono text-text-main">games</h2>
     <a
-      href="https://backloggd.com/u/3p5ilon"
+      href="https://backloggd.com/u/3p5ilon/games/added/type:playing/"
       target="_blank"
       rel="noopener noreferrer"
       class="text-sm font-mono text-theme-accent hover:text-theme-link no-underline"
@@ -69,7 +69,7 @@ const { games } = Astro.props;
         </>
       ) : (
         <p id="games-error" class="font-mono text-base text-text-muted italic my-0">
-          currently unavailable
+          not found
         </p>
       )}
     </div>

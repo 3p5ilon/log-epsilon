@@ -119,7 +119,7 @@ function stopLivePolling() {
   }
 }
 
-// Handle tab visibility change
+// Tab visibility control
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     stopLivePolling();
@@ -129,7 +129,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-// Initialize on page load
+// Initialize on load
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     fetchLiveNowData();

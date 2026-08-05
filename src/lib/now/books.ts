@@ -1,37 +1,22 @@
 import { XMLParser } from "fast-xml-parser";
+import { decodeEntities, htmlFetchInit } from "./utils";
 
-export interface GoodreadsBook {
+export interface Book {
   title: string;
   author?: string;
   image?: string;
   link: string;
 }
 
-function decodeEntities(str: string): string {
-  if (!str) return "";
-  return str
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-}
+export type GoodreadsBook = Book;
 
-export async function getGoodreadsReading(userId = "128272854"): Promise<GoodreadsBook | null> {
+const GOODREADS_USER_ID = "128272854";
+
+export async function getBook(): Promise<Book | null> {
   try {
-    const timestamp = Date.now();
-    const url = `https://www.goodreads.com/review/list_rss/${userId}?shelf=currently-reading&_t=${timestamp}`;
-
-    const res = await fetch(url, {
-      cache: "no-store",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-      },
-      signal: AbortSignal.timeout(5000),
-    });
-
+    const ts = Date.now();
+    const url = `https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=currently-reading&_t=${ts}`;
+    const res = await fetch(url, htmlFetchInit());
     if (!res.ok) return null;
 
     const parser = new XMLParser({ ignoreAttributes: false, cdataPropName: "__cdata" });
@@ -53,10 +38,12 @@ export async function getGoodreadsReading(userId = "128272854"): Promise<Goodrea
       title,
       author: author || undefined,
       image: image || undefined,
-      link: link || `https://www.goodreads.com/user/show/${userId}`,
+      link: link || `https://www.goodreads.com/user/show/${GOODREADS_USER_ID}`,
     };
   } catch (err) {
     console.error("[now/books] Failed to fetch Goodreads feed:", err);
     return null;
   }
 }
+
+export const getGoodreadsReading = getBook;
