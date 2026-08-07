@@ -50,11 +50,11 @@ const { films } = Astro.props;
             class="group font-mono font-semibold text-base text-text-main hover:text-theme-link block leading-tight break-words"
           >
             <span class="group-hover:underline">{films.title}</span>
-            {films.year && (
+            {/* {films.year && (
               <span id="films-year" class="text-sm font-normal text-text-muted group-hover:text-theme-link ml-1.5 inline-block no-underline">
                 ({films.year})
               </span>
-            )}
+            )} */}
           </a>
           {films.director && (
             <p id="films-director" class="text-sm text-text-muted mt-1 mb-0 leading-relaxed">

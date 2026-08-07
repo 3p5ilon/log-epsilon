@@ -17,7 +17,6 @@ const SERIALIZD_HEADERS = { "X-Requested-With": "serializd_vercel" };
 export async function getShow(): Promise<Show | null> {
   const ts = Date.now();
 
-  // Recent review from profile
   try {
     const res = await fetch(
       `https://serializd.onrender.com/mobile/page/profile_v2_part_2/${SERIALIZD_USERNAME}?_t=${ts}`,
@@ -35,7 +34,7 @@ export async function getShow(): Promise<Show | null> {
           : `https://www.serializd.com/user/${SERIALIZD_USERNAME}`;
         const image = tmdbImage(latest.showSeasons?.[0]?.posterPath ?? latest.showBannerImage);
 
-        // Fetch director from crew details
+        // Fetch director from show crew
         let director: string | undefined;
         if (latest.showId) {
           try {
@@ -58,33 +57,7 @@ export async function getShow(): Promise<Show | null> {
       }
     }
   } catch (err) {
-    console.error("[now/shows] profile_v2_part_2 fetch failed:", err);
-  }
-
-  // Fallback: top show from user_stats
-  try {
-    const res = await fetch(
-      `https://serializd.onrender.com/mobile/page/user_stats/${SERIALIZD_USERNAME}?_t=${ts}`,
-      jsonFetchInit(SERIALIZD_HEADERS, 4000)
-    );
-
-    if (res.ok) {
-      const data = await res.json();
-      const top = (data?.watchedStats?.timePerShow as any[])?.[0];
-      if (top?.showDetails?.name) {
-        const details = top.showDetails;
-        const title = decodeEntities(String(details.name)).trim();
-        const backdrops: any[] = top?.showImages?.backdrops ?? [];
-        const posters: any[] = top?.showImages?.posters ?? [];
-        const image = tmdbImage(backdrops[0]?.imageUrl ?? posters[0]?.imageUrl ?? details.bannerImage);
-        const link = details.id
-          ? `https://www.serializd.com/show/${details.id}`
-          : `https://www.serializd.com/user/${SERIALIZD_USERNAME}`;
-        return { title, image, link };
-      }
-    }
-  } catch (err) {
-    console.error("[now/shows] user_stats fallback failed:", err);
+    console.error("[now/shows] Serializd profile_v2_part_2 fetch failed:", err);
   }
 
   return null;

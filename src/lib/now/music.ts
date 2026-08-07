@@ -32,7 +32,7 @@ export async function getMusic(): Promise<Music | null> {
             images.find((i) => i.size === "extralarge") ??
             images.find((i) => i.size === "large") ??
             images.at(-1);
-          const image = img?.["#text"]?.replace(/\/(34s|64s|174s)\//, "/300x300/") || undefined;
+          const image = img?.["#text"]?.replace(/\/(34s|64s|174s|300s)\//, "/300x300/") || undefined;
 
           if (title && artist) return { title, artist, image, link };
         }
@@ -42,23 +42,37 @@ export async function getMusic(): Promise<Music | null> {
     }
   }
 
-  // HTML fallback
+  // HTML fallback (scraping recent tracks)
   try {
     const res = await fetch(`https://www.last.fm/user/${LASTFM_USERNAME}?_t=${ts}`, htmlFetchInit());
     if (res.ok) {
       const html = await res.text();
-      const trackLink = html.match(/class="chartlist-name"[\s\S]*?href="(\/music[^"]+)"/)?.[1];
-      const title = html.match(/class="chartlist-name"[\s\S]*?title="([^"]+)"/)?.[1];
-      const artist = html.match(/class="chartlist-artist"[\s\S]*?title="([^"]+)"/)?.[1];
-      const imgSrc = html.match(/class="chartlist-image"[\s\S]*?<img[^>]+src="([^"]+)"/)?.[1];
+      const rowMatch = html.match(/<tr[^>]*class="[^"]*chartlist-row[^"]*"[\s\S]*?<\/tr>/i);
+      if (rowMatch) {
+        const row = rowMatch[0];
+        const linkTitle =
+          row.match(/class="chartlist-name"[\s\S]*?href="(\/music\/[^"]+)"[^>]*>([^<]+)<\/a>/i) ||
+          row.match(/href="(\/music\/[^"]+)"[\s\S]*?title="([^"]+)"/i);
+        const artistMatch =
+          row.match(/class="chartlist-artist"[\s\S]*?href="\/music\/[^"]+"[^>]*>([^<]+)<\/a>/i) ||
+          row.match(/class="chartlist-artist"[\s\S]*?title="([^"]+)"/i);
+        const imgMatch =
+          row.match(/class="chartlist-image"[\s\S]*?<img[^>]+src="([^"]+)"/i) ||
+          html.match(/class="avatar[^"]*"[\s\S]*?<img[^>]+src="([^"]+)"/i);
 
-      if (title && artist) {
-        return {
-          title: decodeEntities(title),
-          artist: decodeEntities(artist),
-          image: imgSrc?.replace(/\/(34s|64s|174s)\//, "/300x300/"),
-          link: trackLink ? `https://www.last.fm${trackLink}` : `https://www.last.fm/user/${LASTFM_USERNAME}`,
-        };
+        const title = decodeEntities(linkTitle?.[2] || linkTitle?.[1] || "").trim();
+        const artist = decodeEntities(artistMatch?.[1] || "").trim();
+        const rawLink = linkTitle?.[1];
+        const rawImage = imgMatch?.[1];
+
+        if (title && artist) {
+          return {
+            title,
+            artist,
+            image: rawImage ? rawImage.replace(/\/(34s|64s|174s|300s)\//, "/300x300/") : undefined,
+            link: rawLink ? `https://www.last.fm${rawLink}` : `https://www.last.fm/user/${LASTFM_USERNAME}`,
+          };
+        }
       }
     }
   } catch (err) {

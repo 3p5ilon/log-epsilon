@@ -22,9 +22,10 @@ export async function getBook(): Promise<Book | null> {
     const parser = new XMLParser({ ignoreAttributes: false, cdataPropName: "__cdata" });
     const parsed = parser.parse(await res.text());
     const rawItems = parsed?.rss?.channel?.item;
-    const item = rawItems ? (Array.isArray(rawItems) ? rawItems[0] : rawItems) : null;
-    if (!item) return null;
+    const items = rawItems ? (Array.isArray(rawItems) ? rawItems : [rawItems]) : [];
+    if (items.length === 0) return null;
 
+    const item = items[0];
     const cdata = (v: unknown) => (v && typeof v === "object" ? (v as any).__cdata || "" : String(v ?? ""));
     const title = decodeEntities(cdata(item.title)).trim();
     if (!title) return null;

@@ -64,7 +64,7 @@ async function fetchLiveNowData() {
         titleSpan.textContent = data.films.title;
       }
 
-      if (data.films.year) updateText("films-year", `(${data.films.year})`);
+      // if (data.films.year) updateText("films-year", `(${data.films.year})`);
       updateText("films-director", data.films.director);
       updateText("films-stars", data.films.stars);
     }
