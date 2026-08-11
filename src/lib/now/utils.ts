@@ -11,15 +11,26 @@ export function decodeEntities(str: string): string {
 export const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
 
-export const NO_CACHE_HEADERS: HeadersInit = {
+export const BROWSER_HEADERS: Record<string, string> = {
+  "User-Agent": UA,
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+  "Accept-Language": "en-US,en;q=0.9",
   "Cache-Control": "no-cache, no-store, must-revalidate",
   Pragma: "no-cache",
+  "Sec-Ch-Ua": '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="99"',
+  "Sec-Ch-Ua-Mobile": "?0",
+  "Sec-Ch-Ua-Platform": '"Windows"',
+  "Sec-Fetch-Dest": "document",
+  "Sec-Fetch-Mode": "navigate",
+  "Sec-Fetch-Site": "none",
+  "Sec-Fetch-User": "?1",
+  "Upgrade-Insecure-Requests": "1",
 };
 
 export function htmlFetchInit(timeoutMs = 5000): RequestInit {
   return {
     cache: "no-store",
-    headers: { "User-Agent": UA, Accept: "text/html", ...NO_CACHE_HEADERS },
+    headers: BROWSER_HEADERS,
     signal: AbortSignal.timeout(timeoutMs),
   };
 }
@@ -27,7 +38,7 @@ export function htmlFetchInit(timeoutMs = 5000): RequestInit {
 export function jsonFetchInit(extra: HeadersInit = {}, timeoutMs = 5000): RequestInit {
   return {
     cache: "no-store",
-    headers: { "User-Agent": UA, Accept: "application/json", ...NO_CACHE_HEADERS, ...extra },
+    headers: { ...BROWSER_HEADERS, Accept: "application/json", ...extra },
     signal: AbortSignal.timeout(timeoutMs),
   };
 }
