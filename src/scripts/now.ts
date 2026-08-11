@@ -12,7 +12,7 @@ function updateText(id: string, value?: string) {
 function updateHref(id: string, href?: string) {
   if (!href) return;
   const el = document.getElementById(id) as HTMLAnchorElement | null;
-  if (el && el.getAttribute("href") !== href) {
+  if (el && el.href !== href) {
     el.href = href;
   }
 }
@@ -21,9 +21,7 @@ function updateImage(id: string, src?: string, alt?: string) {
   if (!src) return;
   const el = document.getElementById(id) as HTMLImageElement | null;
   if (el) {
-    if (el.getAttribute("src") !== src && el.src !== src) {
-      el.src = src;
-    }
+    if (el.src !== src) el.src = src;
     if (alt && el.alt !== alt) el.alt = alt;
   }
 }
@@ -66,6 +64,7 @@ async function fetchLiveNowData() {
         titleSpan.textContent = data.films.title;
       }
 
+      // if (data.films.year) updateText("films-year", `(${data.films.year})`);
       updateText("films-director", data.films.director);
       updateText("films-stars", data.films.stars);
     }
@@ -109,6 +108,7 @@ async function fetchLiveNowData() {
 
 function startLivePolling() {
   if (pollingTimer) clearInterval(pollingTimer);
+  // Poll every 60 seconds
   pollingTimer = setInterval(fetchLiveNowData, 60000);
 }
 
@@ -132,8 +132,10 @@ document.addEventListener("visibilitychange", () => {
 // Initialize on load
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
+    fetchLiveNowData();
     startLivePolling();
   });
 } else {
+  fetchLiveNowData();
   startLivePolling();
 }
