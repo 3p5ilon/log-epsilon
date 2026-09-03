@@ -12,7 +12,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
 import { fileURLToPath, URL } from "node:url";
-import { SITE } from "./src/consts";
+import { SITE } from "./src/consts.ts";
 
 export default defineConfig({
   site: SITE.siteUrl,
