@@ -1,5 +1,6 @@
 ---
 import { NAV_LINKS } from "../consts";
+import Neko from "./Neko.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 const currentPath = Astro.url.pathname;
@@ -25,7 +26,8 @@ const currentPath = Astro.url.pathname;
           );
         })
       }
-      <li class="sm:ml-auto">
+      <li class="sm:ml-auto flex items-center gap-3">
+        <Neko />
         <ThemeToggle />
       </li>
     </ul>

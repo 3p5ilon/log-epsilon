@@ -18,3 +18,10 @@ export type Post = {
 };
 
 export type { Project, ProjectSection } from "./lib/projects";
+
+declare global {
+  interface Window {
+    onekoToggle?: () => void;
+    onekoIsRunning?: () => boolean;
+  }
+}
