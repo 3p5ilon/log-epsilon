@@ -21,18 +21,63 @@
     @apply text-theme-link no-underline hover:underline underline-offset-2;
   }
 
-  /* p:not(aside *) {
-    @apply text-[15.5px];
-  } */
+  p:not(aside *) {
+    @apply text-[15px];
+  } 
 
-  :where(h1, h2, h3, h4, h5) {
+  :where(h1, h2, h3, h4, h5, h6) {
     @apply font-semibold tracking-normal;
   }
   :where(h1) { @apply text-2xl; }
   :where(h2) { @apply text-xl; }
   :where(h3) { @apply text-lg; }
   :where(h4) { @apply text-base; }
+  :where(h5) { @apply text-sm; }
+  :where(h6) { @apply text-xs; }
+}
 
+:where(h1, h2, h3, h4, h5, h6):not(.no-hash, [data-no-hash])::before,
+.prose :where(h1, h2, h3, h4, h5, h6):not(.no-hash, [data-no-hash])::before {
+  display: inline-block;
+  user-select: none;
+  font-weight: normal;
+  margin-right: 0.6em;
+  color: var(--theme-link);
+  opacity: 0.75;
+  letter-spacing: normal;
+}
+
+:where(h1):not(.no-hash, [data-no-hash])::before,
+.prose :where(h1):not(.no-hash, [data-no-hash])::before {
+  content: "#";
+}
+
+:where(h2):not(.no-hash, [data-no-hash])::before,
+.prose :where(h2):not(.no-hash, [data-no-hash])::before {
+  content: "##";
+}
+
+:where(h3):not(.no-hash, [data-no-hash])::before,
+.prose :where(h3):not(.no-hash, [data-no-hash])::before {
+  content: "###";
+}
+
+:where(h4):not(.no-hash, [data-no-hash])::before,
+.prose :where(h4):not(.no-hash, [data-no-hash])::before {
+  content: "####";
+}
+
+:where(h5):not(.no-hash, [data-no-hash])::before,
+.prose :where(h5):not(.no-hash, [data-no-hash])::before {
+  content: "#####";
+}
+
+:where(h6):not(.no-hash, [data-no-hash])::before,
+.prose :where(h6):not(.no-hash, [data-no-hash])::before {
+  content: "######";
+}
+
+.prose {
   blockquote p:first-of-type::before,
   blockquote p:last-of-type::after,
   blockquote::before,
@@ -41,7 +86,7 @@
   }
 
   code:not(.expressive-code code) {
-    @apply text-sm text-text-main bg-bg-muted px-2 py-1 rounded-lg whitespace-nowrap;
+    @apply text-sm text-text-main bg-bg-muted px-1 py-1 whitespace-nowrap;
   }
 
   div.expressive-code {
