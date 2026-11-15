@@ -54,11 +54,11 @@
   --bg-main:        var(--ctp-base);
   --bg-muted:       var(--ctp-mantle);
   --bg-surface:     var(--ctp-surface0);
-  --border-main:    var(--ctp-surface2);
+  --border-main:    var(--ctp-surface1);
   --border-hover:   var(--ctp-overlay2);
-  --border-code:    var(--ctp-overlay0);
+  --border-code:    var(--border-main);
   --theme-divider:  var(--ctp-overlay0);
-  --theme-link:     var(--ctp-mauve);
+  --theme-link:     var(--ctp-blue);
   --theme-accent:   var(--ctp-blue);
 }
 
@@ -95,9 +95,9 @@
   --bg-main:        var(--ctp-base);
   --bg-muted:       var(--ctp-mantle);
   --bg-surface:     var(--ctp-surface0);
-  --border-main:    var(--ctp-surface2);
+  --border-main:    var(--ctp-surface1);
   --border-hover:   var(--ctp-overlay2);
-  --border-code:    var(--ctp-surface1);
+  --border-code:    var(--border-main);
   --theme-divider:  var(--ctp-overlay0);
   --theme-link:     var(--ctp-mauve);
   --theme-accent:   var(--ctp-blue);

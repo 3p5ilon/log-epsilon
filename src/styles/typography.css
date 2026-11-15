@@ -21,7 +21,8 @@
     @apply text-theme-link no-underline hover:underline underline-offset-2;
   }
 
-  p:not(aside *) {
+  p:not(aside *),
+  li:not(aside *) {
     @apply text-[15px];
   } 
 
@@ -41,7 +42,7 @@
   display: inline-block;
   user-select: none;
   font-weight: normal;
-  margin-right: 0.6em;
+  margin-right: 0.45em;
   color: var(--theme-link);
   opacity: 0.75;
   letter-spacing: normal;
@@ -85,13 +86,28 @@
     content: none;
   }
 
+  code::before,
+  code::after {
+    content: none !important;
+  }
+
   code:not(.expressive-code code) {
-    @apply text-sm text-text-main bg-bg-muted px-1 py-1 whitespace-nowrap;
+    @apply text-sm text-text-main bg-bg-surface/65 px-2 pt-0.5 pb-1 whitespace-nowrap rounded-none;
+    border-radius: 0 !important;
+  }
+
+  pre {
+    border-radius: 0 !important;
   }
 
   div.expressive-code {
     @apply my-6;
     --ec-codeFontFml: var(--font-mono);
+    --ec-brdRad: 0px !important;
+
+    &, figure, pre, code, .frame, .header, .title, figcaption {
+      border-radius: 0 !important;
+    }
 
     div.code span {
       font-style: normal !important;
@@ -99,22 +115,27 @@
 
     div.copy {
       button {
-        @apply hidden sm:flex;
+        @apply hidden sm:flex rounded-none;
+        border-radius: 0 !important;
         --code-background: var(--bg-main);
       }
     }
 
     figure {
-      @apply border border-bg-surface;
+      @apply border border-border-main rounded-none;
+      border-radius: 0 !important;
       box-shadow: none !important;
 
       figcaption {
-        @apply !bg-bg-muted;
+        @apply !bg-bg-muted rounded-none;
+        border-radius: 0 !important;
         background: var(--bg-muted) !important;
       }
 
       & > pre {
+        @apply rounded-none;
         border: none !important;
+        border-radius: 0 !important;
         scrollbar-width: thin;
       }
     }

@@ -29,6 +29,7 @@ const { games } = Astro.props;
           alt={games.title}
           class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-none block border border-theme-divider/40"
           loading="lazy"
+          decoding="async"
         />
       </a>
     ) : (

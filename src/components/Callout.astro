@@ -47,14 +47,14 @@ const label = title ?? defaultTitle;
 
 <aside
   class:list={[
-    "flex flex-col gap-2 px-4 py-3.5 my-6 bg-bg-main border border-bg-surface border-l-2 text-sm leading-relaxed",
+    "flex flex-col gap-2 px-4 pt-2.5 pb-4 my-6 bg-bg-main border-l-[3px] text-sm leading-relaxed",
     border,
   ]}
   data-type={type}
   role="note"
   aria-label={label}
 >
-  <div class:list={["flex items-center gap-1.5 font-semibold text-sm", text]}>
+  <div class:list={["flex items-center gap-1.5 font-semibold text-[15px] pb-1", text]}>
     <span class="flex items-center shrink-0" aria-hidden="true" set:html={icon} />
     <span>{label}</span>
   </div>

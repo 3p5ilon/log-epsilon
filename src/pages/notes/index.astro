@@ -11,7 +11,7 @@ const posts = (await getCollection("notes", ({ data }) => !data.draft)).sort(
 <Layout title="Notes" desc={`Technical notes, references, and things I'm learning`}>
   <section>
     <h1 class="text-2xl font-semibold">notes</h1>
-    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic text-[15px]">
       <span class="shrink-0 text-theme-link">&gt;</span>
       <p>technical notes, references, and things i'm learning</p>
     </div>

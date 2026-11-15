@@ -25,7 +25,7 @@ const isImageMetadata = typeof src === "object" && src !== null && "src" in src;
         title={title}
         loading={loading}
         decoding="async"
-        class="w-full h-auto block border border-border-code"
+        class="w-full h-auto block border border-border-main"
       />
     ) : (
       <img
@@ -34,7 +34,7 @@ const isImageMetadata = typeof src === "object" && src !== null && "src" in src;
         title={title}
         loading={loading}
         decoding="async"
-        class="w-full h-auto block border border-border-code"
+        class="w-full h-auto block border border-border-main"
       />
     )
   }

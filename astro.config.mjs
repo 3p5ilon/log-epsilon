@@ -1,4 +1,4 @@
-import { defineConfig, passthroughImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import vercel from "@astrojs/vercel";
 import { unified } from "@astrojs/markdown-remark";
 import expressiveCode from "astro-expressive-code";
@@ -18,9 +18,7 @@ export default defineConfig({
   site: SITE.siteUrl,
   output: "static",
   adapter: vercel(),
-  image: {
-    service: passthroughImageService(),
-  },
+  prefetch: true,
   integrations: [
     expressiveCode({
       themes: ["catppuccin-mocha", "catppuccin-latte"],

@@ -11,7 +11,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 <Layout title="Blog" desc={`Thoughts, ideas, and reflections on whatever interests me`}>
    <section>
     <h1 class="text-2xl font-semibold">logs</h1>
-    <div class="mt-5 flex items-start gap-2 text-text-muted italic">
+    <div class="mt-5 flex items-start gap-2 text-text-muted italic text-[15px]">
       <span class="shrink-0 text-theme-link">&gt;</span>
       <p>thoughts, ideas, and reflections on whatever interests me</p>
     </div>

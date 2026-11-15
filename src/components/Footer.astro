@@ -20,7 +20,7 @@ const isHomePage = Astro.url.pathname === "/";
             <a
               href={link.href}
               target={!link.href.startsWith("mailto:") && !link.href.startsWith("/") ? "_blank" : undefined}
-              rel={!link.href.startsWith("mailto:") && !link.href.startsWith("/") ? "noreferrer" : undefined}
+              rel={!link.href.startsWith("mailto:") && !link.href.startsWith("/") ? "noopener noreferrer" : undefined}
               class="transition-colors duration-200 text-text-main hover:text-theme-link"
             >
               {link.label}

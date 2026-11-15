@@ -2,6 +2,7 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 import { SITE } from "../consts";
+import { getPostUrl } from "../lib/post";
 
 export const GET: APIRoute = async () => {
   const blogPosts = (await getCollection("blog", ({ data }) => !data.draft)).map(
@@ -25,7 +26,7 @@ export const GET: APIRoute = async () => {
       description: item.data.desc,
       pubDate: item.data.pubDate,
       categories: item.data.tags,
-      link: `/${item.collection}/${item.id}/`,
+      link: getPostUrl(item, item.collection),
     })),
     customData: `<language>${SITE.language}</language>`,
   });

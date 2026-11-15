@@ -8,4 +8,158 @@ tags:
   - cp
 ---
 
-![Vim Setup for Competitive Programming](./assets/banner.png "Vim Setup for Competitive Programming")
+![Vim Setup for Competitive Programming](./assets/banner.png)
+
+In the last few days I've been solving DSA problems and taking part in contests on Codeforces and LeetCode. I was using Sublime Text, which works perfectly fine for CP — I'd write my C++ code there and just compile and run it with Command+B, and it worked fine. But since I'm already using Vim for my day-to-day coding as a dev environment, I thought maybe I should use Vim as my text editor for CP as well.
+
+## Why vim for CP
+
+Recently I made the jump to Vim, and honestly, I love it. It's fast, it stays out of my way, and once you set it up right, it can shave off a good chunk of the time you'd otherwise waste clicking around. So here's my basic Vim setup for competitive programming — what I use, why I use it, and how you can set up something similar.
+
+I use MacVim, which is basically a GUI version of Vim for macOS. I like it mainly because it makes moving between tabs really smooth, especially when I need to switch between problems, run test cases, and debug quickly. Otherwise you can just use regular Vim, which works the same way for everything below.
+
+## My vimrc
+
+This is my `.vimrc` file, and I'll explain each of the functions related to the CP setup for Vim.
+
+## Function Key Shortcuts
+
+In my `.vimrc` there's a mapping of compile-and-run commands to function keys, so instead of typing out a full `g++` command every single time, I just hit an fn key. Here's what each one does:
+
+### F6 — Run Python
+
+```vim
+noremap <F6> <ESC>:w<CR>:!python3 %<CR>
+inoremap <F6> <ESC>:w<CR>:!python3 %<CR>
+```
+
+Saves the file and runs it with `python3`. Handy on days I'm messing around with Python instead of C++ for a quick script or a brute-force checker.
+
+### F7 — Fast Compile with GCC
+
+```vim
+noremap <F7> <ESC>:w<CR>:execute 'cd %:p:h'<CR>:!g++ -std=c++17 -DONPC -O2 -o "%<" "%" && "./%<" < inp<CR>
+```
+
+This is my "just run it" button. It saves the file, moves into the file's own directory, compiles with `-O2` optimizations and the `-DONPC` flag (more on that below), then runs the binary and feeds it input from a file called `inp`. One key press, and I've got my output.
+
+### F8 — Debug with Clang + Sanitizer
+
+```vim
+noremap <F8> <ESC>:w<CR>:execute 'cd %:p:h'<CR>:!clang++ -fsanitize=address -std=c++17 -Wall -Wextra -Wshadow -DONPC -O2 -o "%<" "%" && "./%<" < inp<CR>
+```
+
+Same idea, but compiled with Clang and the AddressSanitizer turned on. This is my go-to when I get a Runtime Error on Codeforces and have no idea why. It catches array out-of-bounds access, memory issues, and other nasty bugs that a normal compile won't warn you about.
+
+### F9 — Manual Testing (No Input File)
+
+```vim
+noremap <F9> <ESC>:w<CR>:execute 'cd %:p:h'<CR>:!g++ -std=c++17 -Wall -Wextra -Wshadow -DONPC -O2 -o "%<" "%" && "./%<" <CR>
+```
+
+Same as F7, but without piping from `inp`. I use this when I want to type test cases directly into the terminal by hand instead of reading from a file.
+
+### F10 — Compile with Warnings + Input File
+
+```vim
+noremap <F10> <ESC>:w<CR>:execute 'cd %:p:h'<CR>:!g++ -std=c++17 -Wall -Wextra -Wshadow -DONPC -O2 -o "%<" "%" && "./%<" < inp<CR>
+```
+
+Basically F7 with extra warning flags (`-Wall -Wextra -Wshadow`) turned on. Good for catching sloppy mistakes like uninitialized variables or shadowed variable names before they turn into a Wrong Answer.
+
+**A quick note on `-DONPC`:** this is a flag I define myself and check for in my code (like in the CP template snippet below). It lets me print extra debug info or timing stats only when I'm compiling locally — none of that junk shows up when I submit the raw code to a judge.
+
+## Other Useful Bits in My `.vimrc`
+
+Beyond the compile shortcuts, a few other settings make CP life easier:
+
+- `set number relativenumber` — relative line numbers make it way faster to jump around with commands like `5j` or `3dd`.
+- `set clipboard=unnamed` — lets me copy code straight into the system clipboard, so I can paste it directly into Codeforces' submission box.
+- `noremap <TAB> %` — jumps to the matching bracket. Super useful for jumping around nested loops and braces.
+- `command! Rld source ~/.vimrc` — reloads my config without restarting Vim, in case I tweak something mid-contest.
+- Leader key mappings (`<Space>` as leader) for quick window splits, saving, and quitting — small stuff, but it adds up over a contest.
+- `set pastetoggle=<F11>` — toggles paste mode so pasted code doesn't get mangled by auto-indent.
+
+# Plugin Manager: vim-plug
+
+I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins since it's lightweight and dead simple. One-time install:
+
+```bash
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+And in my `.vimrc`:
+
+```vim
+call plug#begin('~/.vim/plugged')
+Plug 'sirver/ultisnips'          " Snippet engine
+Plug 'honza/vim-snippets'        " Snippet collections
+Plug 'tpope/vim-commentary'      " Comment/uncomment with gc
+Plug 'tpope/vim-surround'        " Change surrounding brackets/quotes
+Plug 'jiangmiao/auto-pairs'      " Auto-close brackets/quotes
+call plug#end()
+```
+
+Here's what each plugin actually does for me during a contest:
+
+- **UltiSnips** — the snippet engine that powers all my templates (explained below). This one alone probably saves me the most time.
+- **vim-snippets** — a bundled collection of ready-made snippets for lots of languages, in case I need something outside my own set.
+- **vim-commentary** — comment or uncomment a line with `gc`. Great for quickly disabling debug print statements.
+- **vim-surround** — change or add surrounding brackets/quotes on the fly, like turning `(x)` into `[x]` without deleting and retyping.
+- **auto-pairs** — auto-closes brackets and quotes as I type, so I'm not manually typing `}` `)` `"` all the time.
+
+## Snippets: My Real Secret Weapon
+
+This is where the actual speed comes from. I use UltiSnips with a custom `cpp.snippets` file to store all my go-to CP boilerplate. Setup is simple:
+
+```bash
+mkdir -p ~/.vim/UltiSnips
+cd ~/.vim/UltiSnips && touch cpp.snippets
+```
+
+I've mapped `<Tab>` to expand and jump through snippets:
+
+```vim
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+```
+
+A few snippets I use in almost every single problem:
+
+- `cp` — my full contest template: fast I/O, a `solve()` function, multi-test-case loop, and timing info that only shows up when `-DONPC` is set.
+- `fastio` — the classic `sync_with_stdio(false); cin.tie(nullptr);` combo to speed up I/O.
+- `vin` / `vout` — quickly read a vector or print one out, instead of writing the loop by hand every time.
+- `bs` — a binary search skeleton, so I don't fumble the `l`, `r`, `mid` boundaries mid-contest.
+- `bfs` / `dfs` — ready-to-go graph traversal templates.
+- `binpow` / `modpow` / `modinv` — my number theory toolkit for exponentiation and modular inverse problems.
+- `dir4` / `dir8` — the direction arrays I always need for grid/matrix problems.
+- `all` / `rall` — shorthand for `v.begin(), v.end()` and the reverse version, so `sort(all(v))` becomes a one-liner.
+- Small containers on demand: `set`, `mset`, `map`, `umap`, `minheap` — declare the right data structure without typing the full template type.
+
+Instead of memorizing or retyping boilerplate under time pressure, I just type the snippet name, hit `Tab`, and fill in the blanks.
+
+## Crucial macOS Fix: `<bits/stdc++.h>`
+
+If you're coding C++ on macOS, there's one thing that'll trip you up immediately: your compiler defaults to Apple Clang, which doesn't ship with GNU-specific headers like `<bits/stdc++.h>` — the header almost every competitive programmer relies on to pull in the entire standard library with one line.
+
+Here's how I fixed it globally so it works everywhere, including in Vim:
+
+1. Create the `bits` directory:
+
+```bash
+sudo mkdir -p /usr/local/include/bits
+```
+
+2. Download the GCC `stdc++.h` header into it:
+
+```bash
+sudo curl -o /usr/local/include/bits/stdc++.h https://raw.githubusercontent.com/gcc-mirror/gcc/master/libstdc%2B%2B-v3/include/precompiled/stdc%2B%2B.h
+```
+
+That's it — `#include <bits/stdc++.h>` now compiles fine, and none of my snippets or templates break on macOS anymore.
+
+## Wrapping Up
+
+This setup isn't fancy, but it works well for me — one key press to compile and run, snippets for boilerplate I'd otherwise retype a hundred times, and a couple of plugins that make editing feel natural instead of clunky.

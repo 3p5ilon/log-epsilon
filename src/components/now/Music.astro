@@ -29,6 +29,7 @@ const { music } = Astro.props;
           alt={music.title}
           class="w-28 sm:w-36 aspect-square object-cover rounded-none block border border-theme-divider/40"
           loading="lazy"
+          decoding="async"
         />
       </a>
     ) : (

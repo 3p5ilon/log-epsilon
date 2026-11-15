@@ -10,6 +10,11 @@ const badges = [
   { src: "/badges/archlinux.gif", alt: "Arch Linux", href: "https://archlinux.org/" },
   { src: "/badges/macos.gif", alt: "macOS", href: "https://www.apple.com/macos/" },
 
+  { src: "/badges/claude.gif", alt: "Claude", href: "" },
+  { src: "/badges/hotgpus.gif", alt: "Hot GPUs", href: "" },
+  { src: "/badges/sharpie.gif", alt: "Sharpie", href: "" },
+  { src: "/badges/skillmd.gif", alt: "Skill.md", href: "" },
+
   { src: "/badges/nojs.gif", alt: "No JavaScript", href: "https://www.gnu.org/philosophy/javascript-trap.html" },
   { src: "/badges/antinazi.gif", alt: "Anti-fascist", href: "https://en.wikipedia.org/wiki/Anti-fascism" },
   { src: "/badges/adhd.png", alt: "ADHD", href: "https://en.wikipedia.org/wiki/Attention-deficit_hyperactivity_disorder" },
@@ -23,14 +28,14 @@ const badges = [
   <div class="flex w-max flex-shrink-0 animate-marquee gap-2 pr-2">
     {badges.map((b) => (
       <a href={b.href} target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity flex-shrink-0">
-        <img src={b.src} alt={b.alt} width="88" height="31" class="pixelated block" />
+        <img src={b.src} alt={b.alt} width="88" height="31" loading="lazy" decoding="async" class="pixelated block" />
       </a>
     ))}
   </div>
   <div class="flex w-max flex-shrink-0 animate-marquee gap-2 pr-2" aria-hidden="true">
     {badges.map((b) => (
-      <a href={b.href} target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity flex-shrink-0">
-        <img src={b.src} alt={b.alt} width="88" height="31" class="pixelated block" />
+      <a href={b.href} target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity flex-shrink-0" tabindex="-1">
+        <img src={b.src} alt={b.alt} width="88" height="31" loading="lazy" decoding="async" class="pixelated block" />
       </a>
     ))}
   </div>
@@ -43,6 +48,7 @@ const badges = [
   
   .animate-marquee {
     animation: marquee 20s linear infinite;
+    will-change: transform;
   }
   
   .group:hover .animate-marquee {
