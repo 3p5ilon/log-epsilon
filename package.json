@@ -3,8 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24 <25"
   },
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "dev": "astro dev --force",
     "build": "astro build",
